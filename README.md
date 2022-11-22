@@ -1,34 +1,97 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# UWC 2.0
 
-## Getting Started
+Đây là bài tập lớn nhóm "7 con quỷ" - môn Công nghệ phần mềm HK221.
 
-First, run the development server:
+> Lưu ý:
+>
+> Yêu cầu mọi người đọc tất cả hướng dẫn sau.
+>
+> Mọi sự không tuân thủ sẽ bị chỉ trích công khai
 
-```bash
-npm run dev
-# or
-yarn dev
+# Đối với nhóm dev (cả Frontend lẫn Backend)
+
+## Yêu cầu hệ thống:
+
+Cần đảm bảo các yêu cầu sau:
+
+1. Đã cài đặt NodeJS (khuyến khích sử dụng phiên bản v16.18.0 để dễ dàng hỗ trợ sửa lỗi)
+2. Đã cài đặt Docker (khuyến khích sử dụng bản mới nhất)
+3. Đã cài đặt Git
+
+## Setup môi trường dev
+
+Clone dự án này về bằng câu lệnh:
+
+```shell
+git clone https://github.com/ducthuy-ng/uwc2
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Sau khi clone dự án về, ta chạy câu lệnh sau để cài đặt môi trường:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```shell
+npm run setup-dev
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+> Lưu ý:
+>
+> KHÔNG CHẠY câu lệnh: `npm install --save-dev`
+>
+> Vì việc cài đặt đã được tích hợp vào câu lệnh trên.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Bắt đầu lập trình
 
-## Learn More
+> Lưu ý:
+>
+> Cần đảm bảo port (cổng) 3000 đang không sử dụng
 
-To learn more about Next.js, take a look at the following resources:
+Mỗi khi muốn bắt đầu lập trình, ta chạy câu lệnh:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```shell
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Hệ thống sẽ tự động khởi tạo CSDL cần thiết và server.
+Lúc này, terminal của các bạn sẽ hiện thị các dòng log của server.
+Các bạn TUYỆT ĐỐI không được thao tác gì trên log này.
 
-## Deploy on Vercel
+## Kết thúc lập trình
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Nếu các bạn muốn ngừng làm việc:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Nhấn nút `Ctrl + C` để ngưng server đang chạy
+2. Chạy câu lệnh sau:
+
+```shell
+npm run stop-dev
+```
+
+## Git - lấy những cập nhật mới nhất
+
+Để có thể lấy được những cập nhật mới nhất, chạy câu lệnh:
+
+```shell
+git fetch
+```
+
+## Git - Tạo nhánh mới
+
+Mỗi khi nhận công việc, các bạn làm thao tác sau:
+
+```shell
+git checkout main
+
+git fetch
+git pull
+
+git checkout -b dev/<tên tính năng>
+```
+
+## Git - Commit code (làm mỗi ngày):
+
+Mỗi cuối ngày, các bạn phải commit code để mình check tiến độ.
+Việc commit bao gồm 2 thao tác sau:
+
+```shell
+git add .
+git commit -m "<Tin nhắn của các bạn>"
+```
