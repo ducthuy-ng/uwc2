@@ -13,7 +13,7 @@ export default async function get_trolley_ja(req:NextApiRequest,res:NextApiRespo
         on employee.id = trolley_assignment.ja_id\
         where employee.id = $1', [ja_id]); 
         if(results.rows.length <1){
-            res.status(403).send({message:"121"})
+            res.status(403).send({})
             return
         }
         let record = results.rows[0];
