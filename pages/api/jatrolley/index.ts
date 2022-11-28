@@ -1,3 +1,4 @@
+import { values } from "cypress/types/lodash";
 import { resolveSoa } from "dns";
 import { NextApiRequest, NextApiResponse } from "next";
 import { resourceLimits } from "worker_threads";
@@ -16,7 +17,9 @@ export default async function get_trolley_ja(req:NextApiRequest,res:NextApiRespo
             return
         }
         let record = results.rows[0];
-        res.status(200).send({record})
+        const ja_name= record["full_name"]
+        const trolley= record["trolley_id"]
+        res.status(200).send([{ja_name,trolley}])
     }
     catch(e){
         res.status(500).send({})
