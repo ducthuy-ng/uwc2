@@ -39,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return;
     }
     //200 success
-    res.status(201).send({})
+    res.status(200).send({})
   }
   else res.status(404).send({})
 }
