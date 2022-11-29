@@ -19,7 +19,8 @@ async function get_ja_and_assignment(req: NextApiRequest, res: NextApiResponse) 
   try {
     let results = await query("select id as \"ja_id\", full_name as \"ja_name\", trolley_id from employee left join\
         trolley_assignment\
-        on employee.id = trolley_assignment.ja_id");
+        on employee.id = trolley_assignment.ja_id\
+        where working_role = 'JA'");
     res.status(200).send(results.rows);
   } catch (e) {
     res.status(500).send({});
@@ -35,8 +36,8 @@ async function createAssignment(req: NextApiRequest, res: NextApiResponse) {
     res.status(400).send({ message: "Input should not null" });
     return;
   }
-  //select query
   try {
+    //select query
     let result_ja = await query("SELECT * FROM employee WHERE id = $1", [ja]);
     let result_trolley = await query("SELECT * FROM trolley WHERE id = $1", [trolley]);
     //check if ja and trolley are existed
