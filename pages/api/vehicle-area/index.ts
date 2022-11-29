@@ -1,32 +1,20 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { query } from "../../../lib/postgres";
-import { parseCookies, setCookie, destroyCookie } from "nookies";
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  let cookie = parseCookies({req});
-  console.log(cookie);
-  if(cookie["API_TOKEN"]){
-    destroyCookie({res},"API_TOKEN");
-    res.status(400).send({});
-    return;
-  }
+async function getareanameandvehicleid(req:NextApiRequest,res:NextApiResponse) {
+  let areaname =req.query["areaname"];
+  let vehicleid = req.query["vehicleid"];
   try{
-    let results = await query ('SELECT A.name as areaname,B.vehicle_id as vehicleid FROM area A,area_assignment B WHERE B.area_id=A.id');
-    if(results.rows.length==0){
-      res.send("Chua co area nao duoc gan vehicle");
-      return;
-    }
-    for(var i = 0; i< results.rows.length; i++){
-      console.log(results.rows[i].areaname);
-      console.log(results.rows[i].vehicleid);
-    }
+      let results = await query('SELECT A.name as area_name,B.area_id as area_id, B.vehicle_id as vehicle_id FROM area A,area_assignment B WHERE B.area_id=A.id')
+      res.status(200).send(results.rows)   
   }
-  catch{
-    res.status(500).send({});
-    return;
+  catch(e){
+      res.status(500).send({})
+      return
   }
-  setCookie({res},"API_TOKEN","123456",{
-    maxAge: 60*2
-  })
-  res.status(200).send({});
 }
-
+export default async function call_ja_assgin(req:NextApiRequest,res:NextApiResponse){
+  if (req.method === 'GET') {
+    getareanameandvehicleid(req, res)
+    }
+    else res.status(404).send({})
+}
