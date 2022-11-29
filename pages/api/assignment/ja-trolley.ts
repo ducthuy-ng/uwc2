@@ -9,6 +9,9 @@ export default async function AssignmentJATrolley(req: NextApiRequest, res: Next
     case "POST":
       await createAssignment(req, res);
       break;
+    case "DELETE":
+      await deleteAssignment(req, res);
+      break;
     default:
       res.status(404).send({ message: "Method not found" });
       break;
@@ -26,6 +29,31 @@ async function get_ja_and_assignment(req: NextApiRequest, res: NextApiResponse) 
     res.status(500).send({});
     return;
   }
+}
+
+async function deleteAssignment(req: NextApiRequest, res: NextApiResponse) {
+  let trolley = req.query["trolley_id"];
+  let ja = req.query["ja_id"];
+  //check not null
+  if (!trolley || !ja) {
+    res.status(400).send({ message: "Input should not null" });
+    return;
+  }
+  try {
+    let results = await query("SELECT * FROM trolley_assignment WHERE ja_id = $1 and trolley_id = $2", [ja, trolley]);
+    //check if ja and trolley are existed
+    if (results.rows.length < 1) {
+      res.status(400).send({ message: "There are no such assign" });
+      return;
+    }
+    //delete row
+    await query("DELETE FROM trolley_assignment WHERE ja_id = $1 and trolley_id = $2", [ja, trolley]);
+  } catch(e) {
+    res.status(400).send({ message: "Error" });
+    return;
+  }
+  //200 success
+  res.status(200).send({});
 }
 
 async function createAssignment(req: NextApiRequest, res: NextApiResponse) {
