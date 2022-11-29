@@ -1,0 +1,116 @@
+.Trang_chu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 100px;
+    gap: 86px;
+    
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+    
+    background: #FFFFFF;
+
+    margin: auto;
+    height: 100%;
+}
+.Homepage_title
+{
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+    gap: 10px;
+
+    height: 48px;
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.Actions_Board
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    
+    width: 1240px;
+    height: 790px;
+    
+    
+    /* Inside auto layout */
+    
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 1;
+
+    height: 100%;
+}
+
+.Column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+    
+    width: 615px;
+    height: 790px;
+    
+    
+    /* Inside auto layout */
+    
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 1;
+
+    height: 100%;
+}
+
+.button{
+    box-sizing: border-box;
+
+    background-color: white;
+
+    /* Auto layout */
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 59px 0px;
+    gap: 10px;
+    
+    width: 615px;
+    height: 256.67px;
+    
+    border: 1px solid #000000;
+    
+    /* Inside auto layout */
+    
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 1;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+
+    color: #000000;
+
+    cursor: pointer;
+
+    height: 100%;
+}
+
+  
