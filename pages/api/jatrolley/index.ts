@@ -8,18 +8,16 @@ export default async function get_trolley_ja(req:NextApiRequest,res:NextApiRespo
     let ja_id =req.query["ja_id"];
     let trolley_id = req.query["trolley_id"];
     try{
-        let results = await query('select full_name, trolley_id from employee inner join\
+        let results = await query('select full_name, trolley_id from employee left join\
         trolley_assignment\
-        on employee.id = trolley_assignment.ja_id\
-        where employee.id = $1', [ja_id]); 
+        on employee.id = trolley_assignment.ja_id') 
         if(results.rows.length <1){
-            res.status(403).send({})
-            return
+            res.status(403).send({message:'dm'});
+            return;
         }
-        let record = results.rows[0];
-        const ja_name= record["full_name"]
-        const trolley= record["trolley_id"]
-        res.status(200).send([{ja_name,trolley}])
+        res.status(200).send(results.rows)
+
+        
     }
     catch(e){
         res.status(500).send({})
