@@ -18,4 +18,9 @@ async function get_ja_and_assignment(req:NextApiRequest,res:NextApiResponse) {
         return
     }
 }
-export default get_ja_and_assignment;
+export default async function call_ja_assgin(req:NextApiRequest,res:NextApiResponse){
+    if (req.method === 'GET') {
+        get_ja_and_assignment(req, res)
+      }
+      else res.status(404).send({})
+}
