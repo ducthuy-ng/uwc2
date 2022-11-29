@@ -6,7 +6,7 @@ describe("Test Assign JA-Trolley", () => {
     }).then(resp => {
       expect(resp.body).to.have.length(10);
       for (const assigment of resp.body) {
-        expect(assigment).to.have.property("trolley_id");
+        expect(assigment).to.have.all.keys(["ja_id", "ja_name", "trolley_id"])
         expect(assigment["trolley_id"]).to.be.null;
       }
     });
@@ -18,6 +18,7 @@ describe("Test Assign JA-Trolley", () => {
       method: "POST",
       qs: {
         ja_id: 1,
+        ja_name: "Susan",
         trolley_id: 1
       }
     }).then(resp => {
