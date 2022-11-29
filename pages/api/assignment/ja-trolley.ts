@@ -20,10 +20,12 @@ export default async function AssignmentJATrolley(req: NextApiRequest, res: Next
 
 async function get_ja_and_assignment(req: NextApiRequest, res: NextApiResponse) {
   try {
-    let results = await query("select id as \"ja_id\", full_name as \"ja_name\", trolley_id from employee left join\
-        trolley_assignment\
-        on employee.id = trolley_assignment.ja_id\
-        where working_role = 'JA'");
+    let results = await query(
+      `select id as "ja_id", full_name as "ja_name", trolley_id
+       from employee
+                left join trolley_assignment on employee.id = trolley_assignment.ja_id
+       where working_role = 'JA'`
+    );
     res.status(200).send(results.rows);
   } catch (e) {
     res.status(500).send({});
@@ -48,7 +50,7 @@ async function deleteAssignment(req: NextApiRequest, res: NextApiResponse) {
     }
     //delete row
     await query("DELETE FROM trolley_assignment WHERE ja_id = $1 and trolley_id = $2", [ja, trolley]);
-  } catch(e) {
+  } catch (e) {
     res.status(400).send({ message: "Error" });
     return;
   }

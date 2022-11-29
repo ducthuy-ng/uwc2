@@ -2,8 +2,8 @@ describe("Test Assign JA-Trolley", () => {
   it("First run should return empty array", () => {
     cy.request({
       url: "/api/assignment/ja-trolley",
-      method: "GET"
-    }).then(resp => {
+      method: "GET",
+    }).then((resp) => {
       expect(resp.body).to.have.length(10);
       for (const assigment of resp.body) {
         expect(assigment).to.have.all.keys(["ja_id", "ja_name", "trolley_id"]);
@@ -19,9 +19,9 @@ describe("Test Assign JA-Trolley", () => {
       qs: {
         ja_id: 1,
         ja_name: "Susan",
-        trolley_id: 1
-      }
-    }).then(resp => {
+        trolley_id: 1,
+      },
+    }).then((resp) => {
       expect(resp.status).to.be.eq(200);
     });
   });
@@ -29,9 +29,9 @@ describe("Test Assign JA-Trolley", () => {
   it("After insert, get ALL must have this assignment", () => {
     cy.request({
       url: "/api/assignment/ja-trolley",
-      method: "GET"
-    }).then(resp => {
-      expect(resp.body).to.deep.include({ "ja_id": 1, "ja_name": "Susan", "trolley_id": 1 });
+      method: "GET",
+    }).then((resp) => {
+      expect(resp.body).to.deep.include({ ja_id: 1, ja_name: "Susan", trolley_id: 1 });
     });
   });
 
@@ -41,10 +41,10 @@ describe("Test Assign JA-Trolley", () => {
       method: "POST",
       qs: {
         ja_id: 1,
-        trolley_id: 2
+        trolley_id: 2,
       },
-      failOnStatusCode: false
-    }).then(resp => {
+      failOnStatusCode: false,
+    }).then((resp) => {
       expect(resp.status).to.be.eq(400);
     });
   });
@@ -55,10 +55,10 @@ describe("Test Assign JA-Trolley", () => {
       method: "POST",
       qs: {
         ja_id: 2,
-        trolley_id: 1
+        trolley_id: 1,
       },
-      failOnStatusCode: false
-    }).then(resp => {
+      failOnStatusCode: false,
+    }).then((resp) => {
       expect(resp.status).to.be.eq(400);
     });
   });
@@ -69,9 +69,9 @@ describe("Test Assign JA-Trolley", () => {
       method: "DELETE",
       qs: {
         trolley_id: 1,
-        ja_id: 1
-      }
-    }).then(resp => {
+        ja_id: 1,
+      },
+    }).then((resp) => {
       expect(resp.status).to.be.eq(200);
     });
   });
@@ -82,10 +82,10 @@ describe("Test Assign JA-Trolley", () => {
       method: "DELETE",
       qs: {
         trolley_id: 1,
-        ja_id: 1
+        ja_id: 1,
       },
-      failOnStatusCode: false
-    }).then(resp => {
+      failOnStatusCode: false,
+    }).then((resp) => {
       expect(resp.status).to.be.eq(400);
     });
   });
@@ -97,8 +97,8 @@ describe("Test Assign JA-Trolley", () => {
       qs: {
         trolley_id: 1,
       },
-      failOnStatusCode: false
-    }).then(resp => {
+      failOnStatusCode: false,
+    }).then((resp) => {
       expect(resp.status).to.be.eq(400);
     });
   });

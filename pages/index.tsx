@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 
-import styles from "./../styles/Homepage.module.css"
+import styles from "./../styles/Homepage.module.css";
 
 const Home: NextPage = () => {
   return (
     <div className={styles.Trang_chu}>
-      <div> 
+      <div>
         <h1 className={styles.Homepage_title}>TRANG CHỦ</h1>
       </div>
       <div className={styles.Actions_Board}>
