@@ -8,8 +8,7 @@ const Home: NextPage = () => {
       <div> 
         <h1 className={styles.Homepage_title}>TRANG CHỦ</h1>
       </div>
-      <div>
-        <div className={styles.Actions_Board}> 
+      <div className={styles.Actions_Board}>
         <div className={styles.Column}>
           <button className={styles.button}> Phân xe đẩy - lao công</button>
           <button className={styles.button}> Quản lý lịch nền - lao công</button>
@@ -20,7 +19,6 @@ const Home: NextPage = () => {
           <button className={styles.button}> Phân khu vực - xe rác</button>
           <button className={styles.button}> Quản lý lịch nền - tài xế</button>
           <button className={styles.button}> Lịch làm việc - tài xế</button>
-        </div>
         </div>
       </div>
     </div>
