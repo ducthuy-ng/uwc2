@@ -1,12 +1,15 @@
 import type { NextPage } from "next";
-import styles from "../../styles/assignment-vehicle.module.css";
+import styles from "./../../styles/assignment-vehicle.module.css";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import { ReactNode, useState } from "react";
 import { fetcher } from "../../lib/fetch";
 import useSWR from "swr";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
   const { data, error } = useSWR("/api/assignment/area-vehicle", fetcher);
   return (
     <div className={styles.container}>
@@ -15,7 +18,13 @@ const Home: NextPage = () => {
       </div>
       <div className={styles.option}>
         <div>
-          <Button>Quay lại</Button>
+          <Button
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            Quay lại
+          </Button>
         </div>
         <div className={styles.optionSearch}>
           <div>
