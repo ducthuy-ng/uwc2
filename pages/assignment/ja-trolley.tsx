@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
-import styles from "./../styles/assignment-ja.module.css";
-import { Button } from "../components/Button/Button";
-import { Input } from "../components/Input/Input";
+import styles from "../../styles/assignment-ja.module.css";
+import { Button } from "../../components/Button/Button";
+import { Input } from "../../components/Input/Input";
 import { useState } from "react";
-import { fetcher } from "../lib/fetch";
+import { fetcher } from "../../lib/fetch";
 import useSWR from "swr";
 
 const Home: NextPage = () => {

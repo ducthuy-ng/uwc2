@@ -1,13 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { query } from "../../../lib/postgres";
-async function get_area_vehicle(req:NextApiRequest,res:NextApiResponse) {
-  try{
-      let results = await query('SELECT A.name as area_name,A.id as area_id, B.vehicle_id as vehicle_id FROM area A left join area_assignment B ON B.area_id=A.id')
-      res.status(200).send(results.rows)   
-  }
-  catch(e){
-      res.status(500).send({})
-      return
+async function get_area_vehicle(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    let results = await query(
+      "SELECT A.name as area_name,A.id as area_id, B.vehicle_id as vehicle_id FROM area A left join area_assignment B ON B.area_id=A.id"
+    );
+    res.status(200).send(results.rows);
+  } catch (e) {
+    res.status(500).send({});
+    return;
   }
 }
 async function createAssignment(req: NextApiRequest, res: NextApiResponse) {
@@ -72,7 +73,7 @@ async function deleteAssignment(req: NextApiRequest, res: NextApiResponse) {
   //200 success
   res.status(200).send({});
 }
-export default async function call_area_vehicle(req:NextApiRequest,res:NextApiResponse){
+export default async function call_area_vehicle(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case "GET":
       await get_area_vehicle(req, res);

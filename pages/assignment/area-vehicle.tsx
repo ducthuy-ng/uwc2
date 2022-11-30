@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
-import styles from "./../styles/assignment-vehicle.module.css";
-import { Button } from "../components/Button/Button";
-import { Input } from "../components/Input/Input";
+import styles from "../../styles/assignment-vehicle.module.css";
+import { Button } from "../../components/Button/Button";
+import { Input } from "../../components/Input/Input";
 import { ReactNode, useState } from "react";
-import { fetcher } from "../lib/fetch";
+import { fetcher } from "../../lib/fetch";
 import useSWR from "swr";
 
 const Home: NextPage = () => {
@@ -30,9 +30,10 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div className={styles.body}>
-         {data
+        {data
           ? data.map((item: AssignmentProps) => (
               <Assignment
+                key={item["area_id"]}
                 area_name={item["area_name"]}
                 area_id={item["area_id"]}
                 vehicle_id={item["vehicle_id"]}
@@ -48,7 +49,6 @@ type AssignmentProps = {
   area_name: string;
   area_id: string;
   vehicle_id?: string;
-
 };
 
 const Assignment = (props: AssignmentProps) => {
