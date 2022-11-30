@@ -5,7 +5,7 @@ export enum day_of_week{
   'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
 }
 
-export default async function AssignmentCoTrolley(req: NextApiRequest, res: NextApiResponse) {
+export default async function AssignmentCoBaseCalendar(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case "GET":
       await getCoBaseCalendar(req, res);
