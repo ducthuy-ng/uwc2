@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { query } from "../../../lib/postgres";
 async function get_area_vehicle(req:NextApiRequest,res:NextApiResponse) {
   try{
-      let results = await query('SELECT A.name as area_name,B.area_id as area_id, B.vehicle_id as vehicle_id FROM area A,area_assignment B WHERE B.area_id=A.id')
+      let results = await query('SELECT A.name as area_name,A.id as area_id, B.vehicle_id as vehicle_id FROM area A left join area_assignment B ON B.area_id=A.id')
       res.status(200).send(results.rows)   
   }
   catch(e){
