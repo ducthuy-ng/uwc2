@@ -13,10 +13,11 @@ const Home: NextPage = () => {
       <div className={styles.Actions_Board}>
         <div className={styles.Column}>
           <button className={styles.button}> Phân xe đẩy - lao công</button>
-          <button className={styles.button}
+          <button
+            className={styles.button}
             onClick={() => {
               setShowJATrolleyModal(true);
-            }} 
+            }}
           >
             Quản lý lịch nền - lao công
           </button>
@@ -25,12 +26,14 @@ const Home: NextPage = () => {
 
         <div className={styles.Column}>
           <button className={styles.button}> Phân khu vực - xe rác</button>
-          <button className={styles.button}
+          <button
+            className={styles.button}
             onClick={() => {
               setShowCOAreaModal(true);
-            }} 
-          > 
-          Quản lý lịch nền - tài xế</button>
+            }}
+          >
+            Quản lý lịch nền - tài xế
+          </button>
           <button className={styles.button}> Lịch làm việc - tài xế</button>
         </div>
       </div>
