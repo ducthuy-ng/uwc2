@@ -4,7 +4,7 @@ describe("Test Assign Area-Vehicle", () => {
       url: "/api/assignment/area-vehicle",
       method: "GET",
     }).then((resp) => {
-      expect(resp.body).to.have.length(10);
+      expect(resp.body).to.have.length(5);
       for (const assigment of resp.body) {
         expect(assigment).to.have.all.keys(["area_id", "area_name", "vehicle_id"]);
         expect(assigment["vehicle_id"]).to.be.null;
@@ -43,8 +43,8 @@ describe("Test Assign Area-Vehicle", () => {
       url: "/api/assignment/area-vehicle",
       method: "POST",
       qs: {
-        ja_id: 1,
-        trolley_id: 2,
+        area_id: 1,
+        vehicle_id: 2,
       },
       failOnStatusCode: false,
     }).then((resp) => {
@@ -57,8 +57,8 @@ describe("Test Assign Area-Vehicle", () => {
       url: "/api/assignment/area-vehicle",
       method: "POST",
       qs: {
-        ja_id: 2,
-        trolley_id: 1,
+        area_id: 2,
+        vehicle_id: 1,
       },
       failOnStatusCode: false,
     }).then((resp) => {
@@ -71,8 +71,8 @@ describe("Test Assign Area-Vehicle", () => {
       url: "/api/assignment/area-vehicle",
       method: "DELETE",
       qs: {
-        trolley_id: 1,
-        ja_id: 1,
+        vehicle_id: 1,
+        area_id: 1,
       },
     }).then((resp) => {
       expect(resp.status).to.be.eq(200);
@@ -84,8 +84,8 @@ describe("Test Assign Area-Vehicle", () => {
       url: "/api/assignment/area-vehicle",
       method: "DELETE",
       qs: {
-        trolley_id: 1,
-        ja_id: 1,
+        vehicle_id: 1,
+        area_id: 1,
       },
       failOnStatusCode: false,
     }).then((resp) => {
@@ -98,7 +98,7 @@ describe("Test Assign Area-Vehicle", () => {
       url: "/api/assignment/area-vehicle",
       method: "DELETE",
       qs: {
-        trolley_id: 1,
+        vehicle_id: 1,
       },
       failOnStatusCode: false,
     }).then((resp) => {
