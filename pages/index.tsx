@@ -9,6 +9,7 @@ const Home: NextPage = () => {
 
   return (
     <div className={styles.Trang_chu}>
+      <h1 className={styles.Homepage_title}>TRANG CHỦ</h1>
       <div className={styles.Actions_Board}>
         <div className={styles.Column}>
           <button className={styles.button}> Phân xe đẩy - lao công</button>
