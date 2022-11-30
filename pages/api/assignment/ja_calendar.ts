@@ -35,12 +35,11 @@ async function create_ja_calendar(req: NextApiRequest, res: NextApiResponse) {
             let results=await query("SELECT ja_id, mcp_id FROM ja_base_calendar WHERE day_of_week = $1", [y]);
             for(var j=1;j<=results.rows.length;j++){
                 let date= year+"/"+month+"/"+i;
-                console.log(date);
                 await query("INSERT INTO ja_calendar (mcp_id,work_date,ja_id) VALUES ($1,TO_DATE($2,'YYYY/MM/DD'),$3)", [results.rows[j-1].mcp_id,date,results.rows[j-1].ja_id]);
             }
         }
     } catch (e) {
-    res.status(500).send("hello");
+    res.status(500).send({});
     return;
     }
     res.status(200).send({});
