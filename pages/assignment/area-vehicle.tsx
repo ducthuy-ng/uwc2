@@ -1,18 +1,17 @@
 import type { NextPage } from "next";
-import styles from "./../styles/assignment-ja.module.css";
-import { Button } from "../components/Button/Button";
-import { Input } from "../components/Input/Input";
-import { useState } from "react";
-import { fetcher } from "../lib/fetch";
+import styles from "../../styles/assignment-vehicle.module.css";
+import { Button } from "../../components/Button/Button";
+import { Input } from "../../components/Input/Input";
+import { ReactNode, useState } from "react";
+import { fetcher } from "../../lib/fetch";
 import useSWR from "swr";
 
 const Home: NextPage = () => {
-  const { data, error } = useSWR("/api/assignment/ja-trolley", fetcher);
-
+  const { data, error } = useSWR("/api/assignment/area-vehicle", fetcher);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>PHÂN XE ĐẨY - LAO CÔNG</h1>
+        <h1>Phân khu vực - xe rác</h1>
       </div>
       <div className={styles.option}>
         <div>
@@ -20,7 +19,7 @@ const Home: NextPage = () => {
         </div>
         <div className={styles.optionSearch}>
           <div>
-            <Input className={styles.optionSearch_Input} placeholder="Nhập tên lao công ..."></Input>
+            <Input className={styles.optionSearch_Input} placeholder="Nhập tên khu vực ..."></Input>
           </div>
           <div>
             <Button className={styles.optionSearch_Button}>Tìm kiếm</Button>
@@ -34,10 +33,10 @@ const Home: NextPage = () => {
         {data
           ? data.map((item: AssignmentProps) => (
               <Assignment
-                key={item["ja_id"]}
-                ja_name={item["ja_name"]}
-                ja_id={item["ja_id"]}
-                trolley_id={item["trolley_id"]}
+                key={item["area_id"]}
+                area_name={item["area_name"]}
+                area_id={item["area_id"]}
+                vehicle_id={item["vehicle_id"]}
               />
             ))
           : "Loading..."}
@@ -47,22 +46,22 @@ const Home: NextPage = () => {
 };
 
 type AssignmentProps = {
-  ja_name: string;
-  ja_id: string;
-  trolley_id?: string;
+  area_name: string;
+  area_id: string;
+  vehicle_id?: string;
 };
 
 const Assignment = (props: AssignmentProps) => {
-  const [value, setValue] = useState(props.trolley_id || "");
+  const [value, setValue] = useState(props.vehicle_id || "");
   return (
     <form
       onSubmit={async (event) => {
         event.preventDefault();
-        await formSubmit(props.ja_id, value, props.trolley_id);
+        await formSubmit(props.area_id, value, props.vehicle_id);
       }}
       className={styles.item}
     >
-      <div className={styles.item_Text}>{props.ja_name}</div>
+      <div className={styles.item_Text}>{props.area_name}</div>
       <div className={styles.item_Input}>
         <Input
           value={value}
@@ -76,17 +75,17 @@ const Assignment = (props: AssignmentProps) => {
   );
 };
 
-async function formSubmit(ja_id: string, value: string, trolley_id?: string) {
+async function formSubmit(area_id: string, value: string, vehicle_id?: string) {
   if (value) {
-    await fetch(`/api/assignment/ja-trolley?ja_id=${ja_id}&trolley_id=${value}`, {
+    await fetch(`/api/assignment/area-vehicle?area_id=${area_id}&vehicle_id=${value}`, {
       method: "POST",
     });
 
     return;
   }
 
-  if (trolley_id) {
-    await fetch(`/api/assignment/ja-trolley?ja_id=${ja_id}&trolley_id=${trolley_id}`, {
+  if (vehicle_id) {
+    await fetch(`/api/assignment/area-vehicle?area_id=${area_id}&vehicle_id=${vehicle_id}`, {
       method: "DELETE",
     });
   }
