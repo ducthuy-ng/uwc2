@@ -90,7 +90,7 @@ git checkout -b dev/<tên tính năng>
 
 Mỗi cuối ngày, các bạn phải commit code để mình check tiến độ.
 Việc commit bao gồm 2 thao tác sau:
-gi
+
 ```shell
 git add .
 git commit -m "<Tin nhắn của các bạn>"
