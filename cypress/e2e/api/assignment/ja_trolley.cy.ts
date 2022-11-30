@@ -31,7 +31,11 @@ describe("Test Assign JA-Trolley", () => {
       url: "/api/assignment/ja-trolley",
       method: "GET",
     }).then((resp) => {
+<<<<<<< HEAD
       expect(resp.body).to.deep.include({ ja_id: 1, trolley_id: 1 });
+=======
+      expect(resp.body).to.deep.include({ ja_id: 1, ja_name: "Susan", trolley_id: 1 });
+>>>>>>> origin/backend/ja-trolley
     });
   });
 
@@ -43,6 +47,10 @@ describe("Test Assign JA-Trolley", () => {
         ja_id: 1,
         trolley_id: 2,
       },
+<<<<<<< HEAD
+=======
+      failOnStatusCode: false,
+>>>>>>> origin/backend/ja-trolley
     }).then((resp) => {
       expect(resp.status).to.be.eq(400);
     });
@@ -56,6 +64,10 @@ describe("Test Assign JA-Trolley", () => {
         ja_id: 2,
         trolley_id: 1,
       },
+<<<<<<< HEAD
+=======
+      failOnStatusCode: false,
+>>>>>>> origin/backend/ja-trolley
     }).then((resp) => {
       expect(resp.status).to.be.eq(400);
     });
@@ -82,8 +94,28 @@ describe("Test Assign JA-Trolley", () => {
         trolley_id: 1,
         ja_id: 1,
       },
+<<<<<<< HEAD
+=======
+      failOnStatusCode: false,
+>>>>>>> origin/backend/ja-trolley
     }).then((resp) => {
       expect(resp.status).to.be.eq(400);
     });
   });
+<<<<<<< HEAD
+=======
+
+  it("Delete but missing query should fail", () => {
+    cy.request({
+      url: "/api/assignment/ja-trolley",
+      method: "DELETE",
+      qs: {
+        trolley_id: 1,
+      },
+      failOnStatusCode: false,
+    }).then((resp) => {
+      expect(resp.status).to.be.eq(400);
+    });
+  });
+>>>>>>> origin/backend/ja-trolley
 });

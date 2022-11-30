@@ -6,16 +6,21 @@
   gap: 86px;
 
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 1440px;
+  height: 1024px;
 
   background: #ffffff;
+
+  margin: auto;
+  height: 100%;
 }
 .Homepage_title {
   display: flex;
   flex-direction: row;
   padding: 0px;
   gap: 10px;
+
+  height: 48px;
 
   flex: none;
   order: 0;
@@ -33,12 +38,17 @@
   padding: 0px;
   gap: 10px;
 
-  margin: 20px;
+  width: 1240px;
+  height: 790px;
+
+  /* Inside auto layout */
 
   flex: none;
   order: 1;
   align-self: stretch;
   flex-grow: 1;
+
+  height: 100%;
 }
 
 .Column {
@@ -48,63 +58,45 @@
   padding: 0px;
   gap: 10px;
 
+  width: 615px;
+  height: 790px;
+
   /* Inside auto layout */
 
   flex: none;
   order: 0;
   align-self: stretch;
   flex-grow: 1;
+
+  height: 100%;
 }
 
 .button {
+  box-sizing: border-box;
+
   background-color: white;
-  color: black;
 
-  border: 1px solid black;
-  border-radius: 5px;
-  box-shadow: 3px 3px rgba(230, 230, 230, 0.6);
-
-  width: 100%;
-  height: 100%;
-
-  padding: 20px;
-
-  font-style: normal;
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 48px;
-}
-
-.button:hover {
-  cursor: pointer;
-  background-color: #dfdfdf;
-}
-
-.modal_background {
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  width: 100vw;
-  height: 100vh;
+  /* Auto layout */
 
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
+  padding: 59px 0px;
+  gap: 10px;
 
-  background-color: rgba(0, 0, 0, 0.5);
-}
+  width: 615px;
+  height: 256.67px;
 
-.modal {
-  width: 600px;
-  height: 200px;
+  border: 1px solid #000000;
 
-  padding: 10px;
-  background-color: white;
-}
+  /* Inside auto layout */
 
-.modal_title {
-  display: flex;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 1;
+
   font-style: normal;
   font-weight: 700;
   font-size: 40px;
@@ -112,6 +104,7 @@
 
   color: #000000;
 
-  align-items: center;
-  justify-content: center;
+  cursor: pointer;
+
+  height: 100%;
 }
