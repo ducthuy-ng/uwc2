@@ -2,8 +2,11 @@ import type { NextPage } from "next";
 import styles from "./../../styles/ja.module.css";
 import { Button } from "./../../components/Button/Button";
 import { Input } from "./../../components/Input/Input";
+import { useRouter } from "next/router";
 
-const ja: NextPage = (props: AssignmentProps) => {
+const JA: NextPage = (props: AssignmentProps) => {
+  const router = useRouter();
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -11,7 +14,9 @@ const ja: NextPage = (props: AssignmentProps) => {
       </div>
       <div className={styles.option}>
         <div>
-          <Button>Quay lại</Button>
+          <Button onClick={() => {
+            router.push("/");
+          }}>Quay lại</Button>
         </div>
         <div className={styles.optionSearch}>
           <div>
@@ -23,9 +28,9 @@ const ja: NextPage = (props: AssignmentProps) => {
         </div>
       </div>
       <div className={styles.body}>
-        <div style={{ fontWeight: "bold" }}>
+        <h3>
           <Assignment name="Họ và tên" id="MSNV"></Assignment>
-        </div>
+        </h3>
         <Assignment name="Nguyễn Văn A" id="5/7"></Assignment>
         <Assignment name="Nguyễn Văn B" id="0/7"></Assignment>
         <Assignment name="Nguyễn Văn C" id="1/7"></Assignment>
@@ -50,4 +55,4 @@ const Assignment = (props: AssignmentProps) => {
   );
 };
 
-export default ja;
+export default JA;
