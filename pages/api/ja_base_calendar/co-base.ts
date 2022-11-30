@@ -25,7 +25,7 @@ export default async function AssignmentCoBaseCalendar(req: NextApiRequest, res:
 async function getCoBaseCalendar(req: NextApiRequest, res: NextApiResponse) {
   try {
     let results = await query("SELECT id, coalesce(jbc.count, 0) AS number_day_of_week FROM area LEFT JOIN\
-    (SELECt area_id, count(*) FROM co_base_calendar GROUP BY area_id ORDER BY area_id asc) jbc ON area.id = jbc.area_id");
+    (SELECT area_id, count(*) FROM co_base_calendar GROUP BY area_id ORDER BY area_id asc) jbc ON area.id = jbc.area_id");
     res.status(200).send(results.rows);
   } catch (e) {
     res.status(500).send({});
