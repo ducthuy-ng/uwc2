@@ -2,8 +2,11 @@ import type { NextPage } from "next";
 
 import styles from "./../styles/Homepage.module.css";
 import { Dispatch, SetStateAction, useState } from "react";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
   const [showJATrolleyModal, setShowJATrolleyModal] = useState(false);
   const [showCOAreaModal, setShowCOAreaModal] = useState(false);
 
@@ -12,7 +15,15 @@ const Home: NextPage = () => {
       <h1 className={styles.Homepage_title}>TRANG CHỦ</h1>
       <div className={styles.Actions_Board}>
         <div className={styles.Column}>
-          <button className={styles.button}> Phân xe đẩy - lao công</button>
+          <button
+            onClick={() => {
+              router.push("/assignment/ja-trolley");
+            }}
+            className={styles.button}
+          >
+            {" "}
+            Phân xe đẩy - lao công
+          </button>
           <button
             className={styles.button}
             onClick={() => {
@@ -25,7 +36,15 @@ const Home: NextPage = () => {
         </div>
 
         <div className={styles.Column}>
-          <button className={styles.button}> Phân khu vực - xe rác</button>
+          <button
+            onClick={() => {
+              router.push("/assignment/area-vehicle");
+            }}
+            className={styles.button}
+          >
+            {" "}
+            Phân khu vực - xe rác
+          </button>
           <button
             className={styles.button}
             onClick={() => {
