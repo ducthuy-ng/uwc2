@@ -10,7 +10,7 @@ const JA: NextPage = (props: AssignmentProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>QUẢN LÝ LỊCH NỀN LAO CÔNG - lao công</h1>
+        <h1>QUẢN LÝ LỊCH NỀN TÀI XẾ - Tài xế</h1>
       </div>
       <div className={styles.option}>
         <div>
@@ -24,7 +24,7 @@ const JA: NextPage = (props: AssignmentProps) => {
         </div>
         <div className={styles.optionSearch}>
           <div>
-            <Input className={styles.optionSearch_Input} placeholder="Nhập tên lao công ..."></Input>
+            <Input className={styles.optionSearch_Input} placeholder="Nhập tên tài xế ..."></Input>
           </div>
           <div>
             <Button className={styles.optionSearch_Button}>Tìm kiếm</Button>

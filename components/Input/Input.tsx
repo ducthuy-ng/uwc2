@@ -9,6 +9,7 @@ type Props = {
   placeholder?: string;
   type?: HTMLInputTypeAttribute;
   className?: string;
+  value?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 };
@@ -20,6 +21,7 @@ export function Input(props: Props) {
       name={props.name}
       placeholder={props.placeholder}
       type={props.type}
+      value={props.value}
       className={classNames(props.className, styles.input)}
       onChange={props.onChange}
     />
