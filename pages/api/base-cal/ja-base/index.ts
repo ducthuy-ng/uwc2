@@ -24,8 +24,7 @@ export default async function AssignmentJABaseCalendar(req: NextApiRequest, res:
 
 async function getJABaseCalendar(req: NextApiRequest, res: NextApiResponse) {
   try {
-    let results = await query("SELECT id, coalesce(jbc.count, 0) AS number_day_of_week FROM mcp LEFT JOIN\
-    (SELECT mcp_id, count(*) FROM ja_base_calendar GROUP BY mcp_id ORDER BY mcp_id ASC) jbc ON mcp.id = jbc.mcp_id");
+    let results = await query("SELECT id AS ja_id, full_name as ja_name, coalesce(count, 0)::INTEGER AS number_day_of_week FROM employee LEFT JOIN (SELECT id AS JA_ID, count(*) FROM employee RIGHT JOIN ja_base_calendar ON id = ja_base_calendar.ja_id where working_role = 'JA' GROUP BY id) abc ON id = abc.JA_ID where working_role = 'JA'");
     res.status(200).send(results.rows);
   } catch (e) {
     res.status(500).send({});
