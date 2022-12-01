@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { query } from "../../../../lib/postgres";
+import { query } from "../../../../../lib/postgres";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if(req.method != 'GET') res.status(404).send({message: "method not found"})

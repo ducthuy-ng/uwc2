@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { query } from "../../../lib/postgres";
+import { query } from "../../../../lib/postgres";
 
 export enum day_of_week{
   'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
