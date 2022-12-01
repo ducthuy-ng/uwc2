@@ -5,8 +5,11 @@ import { Input } from "../../components/Input/Input";
 import { useState } from "react";
 import { fetcher } from "../../lib/fetch";
 import useSWR from "swr";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
   const { data, error } = useSWR("/api/assignment/ja-trolley", fetcher);
 
   return (
@@ -16,7 +19,13 @@ const Home: NextPage = () => {
       </div>
       <div className={styles.option}>
         <div>
-          <Button>Quay lại</Button>
+          <Button
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            Quay lại
+          </Button>
         </div>
         <div className={styles.optionSearch}>
           <div>
