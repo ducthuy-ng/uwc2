@@ -26,7 +26,7 @@ const Home: NextPage<{ ja_id: string }> = (props: { ja_id: string }) => {
   console.log(props.ja_id);
   const router = useRouter();
 
-  const { data, error } = useSWR("/api/basecal/ja-base", fetcher);
+  const { data, error } = useSWR(`/api/base-cal/ja-base/${props.ja_id}`, fetcher);
 
   return (
     <div className={styles.container}>
@@ -45,7 +45,7 @@ const Home: NextPage<{ ja_id: string }> = (props: { ja_id: string }) => {
         </div>
         <div className={styles.optionSearch}>
           <h3>Họ và tên: </h3>
-          <h3>Mã số nhân viên: 3</h3>
+          <h3>Mã số nhân viên: {props.ja_id}</h3>
         </div>
         <div>
           <Button>Cập nhật</Button>
@@ -56,8 +56,8 @@ const Home: NextPage<{ ja_id: string }> = (props: { ja_id: string }) => {
         {data
           ? data.map((item: AssignmentProps) => (
               <Assignment
-                key={item["ja_id"]}
-                ja_id={item["ja_id"]}
+                key={props.ja_id}
+                ja_id={props.ja_id}
                 mcp_id={item["mcp_id"]}
                 day_of_week={item["day_of_week"]}
               />
