@@ -1,8 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { query } from "../../../../lib/postgres";
 
-export enum day_of_week{
-  'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
+export enum day_of_week {
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+  "Sun",
 }
 
 export default async function AssignmentJABaseCalendar(req: NextApiRequest, res: NextApiResponse) {
@@ -24,7 +30,9 @@ export default async function AssignmentJABaseCalendar(req: NextApiRequest, res:
 
 async function getJABaseCalendar(req: NextApiRequest, res: NextApiResponse) {
   try {
-    let results = await query("SELECT id AS ja_id, full_name as ja_name, coalesce(count, 0)::INTEGER AS number_day_of_week FROM employee LEFT JOIN (SELECT id AS JA_ID, count(*) FROM employee RIGHT JOIN ja_base_calendar ON id = ja_base_calendar.ja_id where working_role = 'JA' GROUP BY id) abc ON id = abc.JA_ID where working_role = 'JA'");
+    let results = await query(
+      "SELECT id AS ja_id, full_name as ja_name, coalesce(count, 0)::INTEGER AS number_day_of_week FROM employee LEFT JOIN (SELECT id AS JA_ID, count(*) FROM employee RIGHT JOIN ja_base_calendar ON id = ja_base_calendar.ja_id where working_role = 'JA' GROUP BY id) abc ON id = abc.JA_ID where working_role = 'JA'"
+    );
     res.status(200).send(results.rows);
   } catch (e) {
     res.status(500).send({});
@@ -82,8 +90,11 @@ async function deleteJaBaseCalendar(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
   try {
-    let results = await query("SELECT * FROM ja_base_calendar \
-    WHERE ja_id = $1 AND mcp_id = $2 AND day_of_week = $3", [ja, mcp, day]);
+    let results = await query(
+      "SELECT * FROM ja_base_calendar \
+    WHERE ja_id = $1 AND mcp_id = $2 AND day_of_week = $3",
+      [ja, mcp, day]
+    );
     //check if ja base calendar is existed
     if (results.rows.length < 1) {
       res.status(400).send({ message: "There are no such calendar" });
@@ -96,7 +107,7 @@ async function deleteJaBaseCalendar(req: NextApiRequest, res: NextApiResponse) {
     }
     //delete row
     await query("DELETE FROM ja_base_calendar WHERE ja_id = $1 AND mcp_id = $2 AND day_of_week = $3", [ja, mcp, day]);
-  } catch(e) {
+  } catch (e) {
     res.status(400).send({ message: "Error" });
     return;
   }

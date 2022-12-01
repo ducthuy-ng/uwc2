@@ -2,7 +2,7 @@ describe("Test Base Calendar functions for JA", () => {
   it("First run, get JA perspective should return empty array", () => {
     cy.request({
       url: "/api/base-cal/ja-base",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.have.length(10);
       for (const assigment of resp.body) {
@@ -15,7 +15,7 @@ describe("Test Base Calendar functions for JA", () => {
   it("First run, get specific JA should return array of 7 items, all is null", () => {
     cy.request({
       url: "/api/base-cal/ja-base/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.have.length(7);
       for (const assigment of resp.body) {
@@ -28,7 +28,7 @@ describe("Test Base Calendar functions for JA", () => {
   it("First run, get MCP perspective should return empty array", () => {
     cy.request({
       url: "/api/base-cal/ja-base/mcp",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.have.length(10);
       for (const assigment of resp.body) {
@@ -41,7 +41,7 @@ describe("Test Base Calendar functions for JA", () => {
   it("First run, get specific MCP should return array of 7 items, all is null", () => {
     cy.request({
       url: "/api/base-cal/ja-base/mcp/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.have.length(7);
       for (const assigment of resp.body) {
@@ -53,13 +53,13 @@ describe("Test Base Calendar functions for JA", () => {
 
   it("Create simple BaseCal should success", () => {
     cy.request({
-      url: "/api/base-cal/ja-base/",
+      url: "/api/base-cal/ja-base",
       method: "POST",
       qs: {
         mcp_id: 1,
         ja_id: 1,
-        day_of_week: "Mon"
-      }
+        day_of_week: "Mon",
+      },
     }).then((resp) => {
       expect(resp.status).to.be.eq(200);
     });
@@ -67,13 +67,13 @@ describe("Test Base Calendar functions for JA", () => {
 
   it("Create simple BaseCal, another DoW should success", () => {
     cy.request({
-      url: "/api/base-cal/ja-base/",
+      url: "/api/base-cal/ja-base",
       method: "POST",
       qs: {
         mcp_id: 1,
         ja_id: 1,
-        day_of_week: "Tue"
-      }
+        day_of_week: "Tue",
+      },
     }).then((resp) => {
       expect(resp.status).to.be.eq(200);
     });
@@ -82,7 +82,7 @@ describe("Test Base Calendar functions for JA", () => {
   it("Get JA perspective should have 2 assigned", () => {
     cy.request({
       url: "/api/base-cal/ja-base",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.deep.include({ ja_id: 1, ja_name: "Susan", number_day_of_week: 2 });
     });
@@ -91,9 +91,12 @@ describe("Test Base Calendar functions for JA", () => {
   it("Get specific JA should return array, 2 is assigned", () => {
     cy.request({
       url: "/api/base-cal/ja-base/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
-      const expectedResults = [{ day_of_week: "Mon", mcp_id: 1 }, { day_of_week: "Tue", mcp_id: 1 }];
+      const expectedResults = [
+        { day_of_week: "Mon", mcp_id: 1 },
+        { day_of_week: "Tue", mcp_id: 1 },
+      ];
 
       for (const result of expectedResults) {
         expect(resp.body).to.deep.include(result);
@@ -104,18 +107,21 @@ describe("Test Base Calendar functions for JA", () => {
   it("Get MCP perspective should have 2 assigned", () => {
     cy.request({
       url: "/api/base-cal/ja-base/mcp",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
-      expect(resp.body).to.deep.include({ mcp_1: 1, number_day_of_week: 2 });
+      expect(resp.body).to.deep.include({ mcp_id: 1, number_day_of_week: 2 });
     });
   });
 
   it("Get specific MCP should return array, 2 is assigned", () => {
     cy.request({
       url: "/api/base-cal/ja-base/mcp/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
-      const expectedResults = [{ day_of_week: "Mon", ja_id: 1 }, { day_of_week: "Tue", ja_id: 1 }];
+      const expectedResults = [
+        { day_of_week: "Mon", ja_id: 1 },
+        { day_of_week: "Tue", ja_id: 1 },
+      ];
 
       for (const result of expectedResults) {
         expect(resp.body).to.deep.include(result);
@@ -125,13 +131,13 @@ describe("Test Base Calendar functions for JA", () => {
 
   it("Delete Mon BaseCal should success", () => {
     cy.request({
-      url: "/api/base-cal/ja-base/",
+      url: "/api/base-cal/ja-base",
       method: "DELETE",
       qs: {
         mcp_id: 1,
         ja_id: 1,
-        day_of_week: "Mon"
-      }
+        day_of_week: "Mon",
+      },
     }).then((resp) => {
       expect(resp.status).to.be.eq(200);
     });
@@ -140,7 +146,7 @@ describe("Test Base Calendar functions for JA", () => {
   it("Get JA perspective should have 1 assigned", () => {
     cy.request({
       url: "/api/base-cal/ja-base",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.deep.include({ ja_id: 1, ja_name: "Susan", number_day_of_week: 1 });
     });
@@ -149,7 +155,7 @@ describe("Test Base Calendar functions for JA", () => {
   it("Get specific JA should return array, 1 is assigned", () => {
     cy.request({
       url: "/api/base-cal/ja-base/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       const expectedResults = [{ day_of_week: "Tue", mcp_id: 1 }];
 
@@ -162,16 +168,16 @@ describe("Test Base Calendar functions for JA", () => {
   it("Get MCP perspective should have 1 assigned", () => {
     cy.request({
       url: "/api/base-cal/ja-base/mcp",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
-      expect(resp.body).to.deep.include({ mcp_1: 1, number_day_of_week: 1 });
+      expect(resp.body).to.deep.include({ mcp_id: 1, number_day_of_week: 1 });
     });
   });
 
   it("Get specific MCP should return array, 1 is assigned", () => {
     cy.request({
       url: "/api/base-cal/ja-base/mcp/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       const expectedResults = [{ day_of_week: "Tue", ja_id: 1 }];
 
@@ -183,13 +189,13 @@ describe("Test Base Calendar functions for JA", () => {
 
   it("Cleanup results", () => {
     cy.request({
-      url: "/api/base-cal/ja-base/",
+      url: "/api/base-cal/ja-base",
       method: "DELETE",
       qs: {
         mcp_id: 1,
         ja_id: 1,
-        day_of_week: "Tue"
-      }
+        day_of_week: "Tue",
+      },
     }).then((resp) => {
       expect(resp.status).to.be.eq(200);
     });
