@@ -16,7 +16,7 @@ const Ja_MCP: NextPage = (props: AssignmentProps) => {
         <div>
           <Button
             onClick={() => {
-              router.push("/basecal/co");
+              router.push("/");
             }}
           >
             Quay lại
