@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { query } from "../../../lib/postgres";
+import { query } from "../../../../lib/postgres";
 
 export enum day_of_week{
   'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
@@ -24,8 +24,10 @@ export default async function AssignmentCoBaseCalendar(req: NextApiRequest, res:
 
 async function getCoBaseCalendar(req: NextApiRequest, res: NextApiResponse) {
   try {
-    let results = await query("SELECT id, coalesce(jbc.count, 0) AS number_day_of_week FROM area LEFT JOIN\
-    (SELECT area_id, count(*) FROM co_base_calendar GROUP BY area_id ORDER BY area_id asc) jbc ON area.id = jbc.area_id");
+    let results = await query("SELECT id AS co_id, full_name as co_name, coalesce(count, 0)::INTEGER \
+    AS number_day_of_week FROM employee LEFT JOIN (SELECT id AS co_id, count(*) FROM employee \
+    RIGHT JOIN co_base_calendar ON id = co_base_calendar.co_id where working_role = 'CO' GROUP BY id) abc \
+    ON id = abc.co_id where working_role = 'CO'");
     res.status(200).send(results.rows);
   } catch (e) {
     res.status(500).send({});
