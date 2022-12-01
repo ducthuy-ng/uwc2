@@ -26,7 +26,7 @@ const Home: NextPage<{ ja_id: string }> = (props: { ja_id: string }) => {
   console.log(props.ja_id);
   const router = useRouter();
 
-  const { data, error } = useSWR("/api/basecal/", fetcher);
+  const { data, error } = useSWR("/api/basecal/ja-base", fetcher);
 
   return (
     <div className={styles.container}>
@@ -53,30 +53,37 @@ const Home: NextPage<{ ja_id: string }> = (props: { ja_id: string }) => {
       </div>
       <div className={styles.body}>
         <FirstRow name="Thứ trong tuần" id="Điểm tập kết"></FirstRow>
-        {/*{data*/}
-        {/*  ? data.map((item: AssignmentProps) => (*/}
-        {/*    <Assignment*/}
-
-        {/*    />*/}
-        {/*  ))*/}
-        {/*  : "Loading..."}*/}
+        {data
+          ? data.map((item: AssignmentProps) => (
+              <Assignment
+                key={item["ja_id"]}
+                ja_id={item["ja_id"]}
+                mcp_id={item["mcp_id"]}
+                day_of_week={item["day_of_week"]}
+              />
+            ))
+          : null}
       </div>
     </div>
   );
 };
-type AssignmentProps = {};
+type AssignmentProps = {
+  ja_id: string;
+  mcp_id: string;
+  day_of_week: string;
+};
 
 const Assignment = (props: AssignmentProps) => {
-  const [value, setValue] = useState(props.trolley_id || "");
+  const [value, setValue] = useState(props.mcp_id || "");
   return (
     <form
       onSubmit={async (event) => {
         event.preventDefault();
-        await formSubmit(props.ja_id, value, props.trolley_id);
+        await formSubmit(props.ja_id, value, props.mcp_id);
       }}
       className={styles.item}
     >
-      <div className={styles.item_Text}>{props.ja_name}</div>
+      <div className={styles.item_Text}>{props.day_of_week}</div>
       <div className={styles.item_Input}>
         <Input
           value={value}
@@ -90,17 +97,17 @@ const Assignment = (props: AssignmentProps) => {
   );
 };
 
-async function formSubmit(ja_id: string, value: string, trolley_id?: string) {
+async function formSubmit(ja_id: string, value: string, mcp_id?: string) {
   if (value) {
-    await fetch(`/api/assignment/ja-trolley?ja_id=${ja_id}&trolley_id=${value}`, {
+    await fetch(`/api/base-cal/ja-base?ja_id=${ja_id}&mcp_id=${value}`, {
       method: "POST",
     });
 
     return;
   }
 
-  if (trolley_id) {
-    await fetch(`/api/assignment/ja-trolley?ja_id=${ja_id}&trolley_id=${trolley_id}`, {
+  if (mcp_id) {
+    await fetch(`/api/base-cal/ja-base?ja_id=${ja_id}&mcp_id=${mcp_id}`, {
       method: "DELETE",
     });
   }
