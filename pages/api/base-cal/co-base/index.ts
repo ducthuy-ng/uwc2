@@ -1,8 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { query } from "../../../../lib/postgres";
 
-export enum day_of_week{
-  'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
+export enum day_of_week {
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+  "Sun",
 }
 
 export default async function AssignmentCoBaseCalendar(req: NextApiRequest, res: NextApiResponse) {
@@ -60,7 +66,10 @@ async function createCoBaseCalendar(req: NextApiRequest, res: NextApiResponse) {
     }
     //check if area has already assigned in that day
     result_area = await query("SELECT * FROM co_base_calendar\
-    WHERE area_id = $1 and day_of_week = $2", [area, day]);
+    WHERE area_id = $1 and day_of_week = $2", [
+      area,
+      day,
+    ]);
     if (result_area.rows.length != 0) {
       res.status(400).send({ message: "area has already assigned in this day" });
       return;
@@ -85,8 +94,11 @@ async function deleteCoBaseCalendar(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
   try {
-    let results = await query("SELECT * FROM co_base_calendar \
-    WHERE co_id = $1 and area_id = $2 and day_of_week = $3", [co, area, day]);
+    let results = await query(
+      "SELECT * FROM co_base_calendar \
+    WHERE co_id = $1 and area_id = $2 and day_of_week = $3",
+      [co, area, day]
+    );
     //check if co base calendar is existed
     if (results.rows.length < 1) {
       res.status(400).send({ message: "There are no such calendar" });
@@ -99,7 +111,7 @@ async function deleteCoBaseCalendar(req: NextApiRequest, res: NextApiResponse) {
     }
     //delete row
     await query("DELETE FROM co_base_calendar WHERE co_id = $1 and area_id = $2 and day_of_week = $3", [co, area, day]);
-  } catch(e) {
+  } catch (e) {
     res.status(400).send({ message: "Error" });
     return;
   }

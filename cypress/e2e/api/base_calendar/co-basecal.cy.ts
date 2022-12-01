@@ -2,7 +2,7 @@ describe("Test Base Calendar functions for CO", () => {
   it("First run, get CO perspective should return empty array", () => {
     cy.request({
       url: "/api/base-cal/co-base",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.have.length(10);
       for (const assigment of resp.body) {
@@ -15,7 +15,7 @@ describe("Test Base Calendar functions for CO", () => {
   it("First run, get specific CO should return array of 7 items, all is null", () => {
     cy.request({
       url: "/api/base-cal/co-base/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.have.length(7);
       for (const assigment of resp.body) {
@@ -28,7 +28,7 @@ describe("Test Base Calendar functions for CO", () => {
   it("First run, get Area perspective should return empty array", () => {
     cy.request({
       url: "/api/base-cal/co-base/area",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.have.length(10);
       for (const assigment of resp.body) {
@@ -41,7 +41,7 @@ describe("Test Base Calendar functions for CO", () => {
   it("First run, get specific Area should return array of 7 items, all is null", () => {
     cy.request({
       url: "/api/base-cal/co-base/area/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.have.length(7);
       for (const assigment of resp.body) {
@@ -58,8 +58,8 @@ describe("Test Base Calendar functions for CO", () => {
       qs: {
         area_id: 1,
         co_id: 1,
-        day_of_week: "Mon"
-      }
+        day_of_week: "Mon",
+      },
     }).then((resp) => {
       expect(resp.status).to.be.eq(200);
     });
@@ -72,8 +72,8 @@ describe("Test Base Calendar functions for CO", () => {
       qs: {
         area_id: 1,
         co_id: 1,
-        day_of_week: "Tue"
-      }
+        day_of_week: "Tue",
+      },
     }).then((resp) => {
       expect(resp.status).to.be.eq(200);
     });
@@ -82,7 +82,7 @@ describe("Test Base Calendar functions for CO", () => {
   it("Get CO perspective should have 2 assigned", () => {
     cy.request({
       url: "/api/base-cal/co-base",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.deep.include({ co_id: 1, co_name: "Susan", number_day_of_week: 2 });
     });
@@ -91,9 +91,12 @@ describe("Test Base Calendar functions for CO", () => {
   it("Get specific CO should return array, 2 is assigned", () => {
     cy.request({
       url: "/api/base-cal/co-base/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
-      const expectedResults = [{ day_of_week: "Mon", area_id: 1 }, { day_of_week: "Tue", area_id: 1 }];
+      const expectedResults = [
+        { day_of_week: "Mon", area_id: 1 },
+        { day_of_week: "Tue", area_id: 1 },
+      ];
 
       for (const result of expectedResults) {
         expect(resp.body).to.deep.include(result);
@@ -104,7 +107,7 @@ describe("Test Base Calendar functions for CO", () => {
   it("Get Area perspective should have 2 assigned", () => {
     cy.request({
       url: "/api/base-cal/co-base/area",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.deep.include({ area_1: 1, number_day_of_week: 2 });
     });
@@ -113,9 +116,12 @@ describe("Test Base Calendar functions for CO", () => {
   it("Get specific Area should return array, 2 is assigned", () => {
     cy.request({
       url: "/api/base-cal/co-base/area/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
-      const expectedResults = [{ day_of_week: "Mon", co_id: 1 }, { day_of_week: "Tue", co_id: 1 }];
+      const expectedResults = [
+        { day_of_week: "Mon", co_id: 1 },
+        { day_of_week: "Tue", co_id: 1 },
+      ];
 
       for (const result of expectedResults) {
         expect(resp.body).to.deep.include(result);
@@ -130,8 +136,8 @@ describe("Test Base Calendar functions for CO", () => {
       qs: {
         area_id: 1,
         co_id: 1,
-        day_of_week: "Mon"
-      }
+        day_of_week: "Mon",
+      },
     }).then((resp) => {
       expect(resp.status).to.be.eq(200);
     });
@@ -140,7 +146,7 @@ describe("Test Base Calendar functions for CO", () => {
   it("Get CO perspective should have 1 assigned", () => {
     cy.request({
       url: "/api/base-cal/co-base",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.deep.include({ co_id: 1, co_name: "Susan", number_day_of_week: 1 });
     });
@@ -149,7 +155,7 @@ describe("Test Base Calendar functions for CO", () => {
   it("Get specific CO should return array, 1 is assigned", () => {
     cy.request({
       url: "/api/base-cal/co-base/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       const expectedResults = [{ day_of_week: "Tue", area_id: 1 }];
 
@@ -162,7 +168,7 @@ describe("Test Base Calendar functions for CO", () => {
   it("Get Area perspective should have 1 assigned", () => {
     cy.request({
       url: "/api/base-cal/co-base/area",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       expect(resp.body).to.deep.include({ area_1: 1, number_day_of_week: 1 });
     });
@@ -171,7 +177,7 @@ describe("Test Base Calendar functions for CO", () => {
   it("Get specific Area should return array, 1 is assigned", () => {
     cy.request({
       url: "/api/base-cal/co-base/area/1",
-      method: "GET"
+      method: "GET",
     }).then((resp) => {
       const expectedResults = [{ day_of_week: "Tue", co_id: 1 }];
 
@@ -188,8 +194,8 @@ describe("Test Base Calendar functions for CO", () => {
       qs: {
         area_id: 1,
         co_id: 1,
-        day_of_week: "Tue"
-      }
+        day_of_week: "Tue",
+      },
     }).then((resp) => {
       expect(resp.status).to.be.eq(200);
     });
