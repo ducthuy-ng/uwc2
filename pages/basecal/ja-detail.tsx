@@ -1,108 +1,123 @@
-// import type { NextPage } from "next";
-// import styles from "./../../styles/ja-detail.module.css";
-// import { Button } from "../../components/Button/Button";
-// import { Input } from "../../components/Input/Input";
-// import { useState } from "react";
-// import { fetcher } from "../../lib/fetch";
-// import useSWR from "swr";
-// import { useRouter } from "next/router";
+import type { GetServerSidePropsContext, NextPage } from "next";
+import styles from "./../../styles/ja-detail.module.css";
+import { Button } from "../../components/Button/Button";
+import { Input } from "../../components/Input/Input";
+import { useState } from "react";
+import { fetcher } from "../../lib/fetch";
+import useSWR from "swr";
+import { useRouter } from "next/router";
 
-// const Home: NextPage = () => {
-//   const router = useRouter();
+export const getServerSideProps = (context: GetServerSidePropsContext) => {
+  if (!context.query["ja_id"])
+    return {
+      redirect: {
+        destination: "/",
+      },
+    };
 
-//   const { data, error } = useSWR("/api/basecal/", fetcher);
+  return {
+    props: {
+      ja_id: context.query["ja_id"],
+    },
+  };
+};
 
-//   return (
-//     <div className={styles.container}>
-//       <div className={styles.header}>
-//         <h1>QUẢN LÝ LỊCH NỀN LAO CÔNG - Chi tiết</h1>
-//       </div>
-//       <div className={styles.option}>
-//         <div>
-//           <Button
-//             onClick={() => {
-//               router.push("/");
-//             }}
-//           >
-//             Quay lại
-//           </Button>
-//         </div>
-//         <div className={styles.optionSearch}>
-//           <h3>Họ và tên: </h3>
-//           <h3>Mã số nhân viên: 3</h3>
-//         </div>
-//         <div>
-//           <Button>Cập nhật</Button>
-//         </div>
-//       </div>
-//       <div className={styles.body}>
-//         <FirstRow name="Thứ trong tuần" id="Điểm tập kết"></FirstRow>
-//         {data
-//           ? data.map((item: AssignmentProps) => (
-//               <Assignment
+const Home: NextPage<{ ja_id: string }> = (props: { ja_id: string }) => {
+  console.log(props.ja_id);
+  const router = useRouter();
 
-//               />
-//             ))
-//           : "Loading..."}
-//       </div>
-//     </div>
-//   );
-// };
+  const { data, error } = useSWR("/api/basecal/", fetcher);
 
-// type AssignmentProps = {};
+  return (
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1>QUẢN LÝ LỊCH NỀN LAO CÔNG - Chi tiết</h1>
+      </div>
+      <div className={styles.option}>
+        <div>
+          <Button
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            Quay lại
+          </Button>
+        </div>
+        <div className={styles.optionSearch}>
+          <h3>Họ và tên: </h3>
+          <h3>Mã số nhân viên: 3</h3>
+        </div>
+        <div>
+          <Button>Cập nhật</Button>
+        </div>
+      </div>
+      <div className={styles.body}>
+        <FirstRow name="Thứ trong tuần" id="Điểm tập kết"></FirstRow>
+        {/*{data*/}
+        {/*  ? data.map((item: AssignmentProps) => (*/}
+        {/*    <Assignment*/}
 
-// const Assignment = (props: AssignmentProps) => {
-//   const [value, setValue] = useState(props.trolley_id || "");
-//   return (
-//     <form
-//       onSubmit={async (event) => {
-//         event.preventDefault();
-//         await formSubmit(props.ja_id, value, props.trolley_id);
-//       }}
-//       className={styles.item}
-//     >
-//       <div className={styles.item_Text}>{props.ja_name}</div>
-//       <div className={styles.item_Input}>
-//         <Input
-//           value={value}
-//           onChange={(e) => {
-//             setValue(e.target.value);
-//           }}
-//         ></Input>
-//       </div>
-//       <input type="submit" hidden></input>
-//     </form>
-//   );
-// };
+        {/*    />*/}
+        {/*  ))*/}
+        {/*  : "Loading..."}*/}
+      </div>
+    </div>
+  );
+};
+type AssignmentProps = {};
 
-// async function formSubmit(ja_id: string, value: string, trolley_id?: string) {
-//   if (value) {
-//     await fetch(`/api/assignment/ja-trolley?ja_id=${ja_id}&trolley_id=${value}`, {
-//       method: "POST",
-//     });
+const Assignment = (props: AssignmentProps) => {
+  const [value, setValue] = useState(props.trolley_id || "");
+  return (
+    <form
+      onSubmit={async (event) => {
+        event.preventDefault();
+        await formSubmit(props.ja_id, value, props.trolley_id);
+      }}
+      className={styles.item}
+    >
+      <div className={styles.item_Text}>{props.ja_name}</div>
+      <div className={styles.item_Input}>
+        <Input
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+        ></Input>
+      </div>
+      <input type="submit" hidden></input>
+    </form>
+  );
+};
 
-//     return;
-//   }
+async function formSubmit(ja_id: string, value: string, trolley_id?: string) {
+  if (value) {
+    await fetch(`/api/assignment/ja-trolley?ja_id=${ja_id}&trolley_id=${value}`, {
+      method: "POST",
+    });
 
-//   if (trolley_id) {
-//     await fetch(`/api/assignment/ja-trolley?ja_id=${ja_id}&trolley_id=${trolley_id}`, {
-//       method: "DELETE",
-//     });
-//   }
-// }
+    return;
+  }
 
-// type FirstRowProps = {
-//   name?: string;
-//   id?: string;
-// };
+  if (trolley_id) {
+    await fetch(`/api/assignment/ja-trolley?ja_id=${ja_id}&trolley_id=${trolley_id}`, {
+      method: "DELETE",
+    });
+  }
+}
 
-// const FirstRow = (props: FirstRowProps) => {
-//   return (
-//     <h3 className={styles.item}>
-//       <div className={styles.item_Name}>{props.name}</div>
-//       <div className={styles.item_MSNV}>{props.id}</div>
-//     </h3>
-//   );
-// };
+type FirstRowProps = {
+  name?: string;
+  id?: string;
+};
 
-// export default Home;
+const FirstRow = (props: FirstRowProps) => {
+  return (
+    <h3 className={styles.item}>
+      <div className={styles.item_Name}>{props.name}</div>
+      <div className={styles.item_MSNV}>{props.id}</div>
+    </h3>
+  );
+};
+
+export default Home;
