@@ -3,10 +3,12 @@ import styles from "./../../styles/ja-mcp.module.css";
 import { Button } from "./../../components/Button/Button";
 import { Input } from "./../../components/Input/Input";
 import { useRouter } from "next/router";
+import useSWR from "swr";
+import { fetcher } from "../../lib/fetch";
 
-const Ja_MCP: NextPage = (props: AssignmentProps) => {
+const Ja_MCP: NextPage = () => {
   const router = useRouter();
-
+  const { data } = useSWR("/api/base-cal/ja-base/mcp", fetcher);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -32,30 +34,46 @@ const Ja_MCP: NextPage = (props: AssignmentProps) => {
         </div>
       </div>
       <div className={styles.body}>
-        <h3>
-          <Assignment name="Điểm tập kết - Mã số" id="Số ngày đã phân công"></Assignment>
-        </h3>
-        <Assignment name="1" id="5/7"></Assignment>
-        <Assignment name="2" id="0/7"></Assignment>
-        <Assignment name="3" id="1/7"></Assignment>
-        <Assignment name="4" id="7/7"></Assignment>
-        <Assignment name="5" id="3/7"></Assignment>
+        <FirstRow name="Điểm tập kết - Mã số" id="Số ngày phân công"></FirstRow>
+        {data
+          ? data.map((item: AssignmentProps) => (
+              <Assignment
+                key={item["mcp_id"]}
+                mcp_id={item["mcp_id"]}
+                number_day_of_week={item["number_day_of_week"]}
+              />
+            ))
+          : null}
       </div>
     </div>
   );
 };
 
 type AssignmentProps = {
-  name?: string;
-  id?: string;
+  mcp_id: string;
+  number_day_of_week: number;
 };
 
 const Assignment = (props: AssignmentProps) => {
   return (
     <div className={styles.item}>
+      <div className={styles.item_Name}>{props.mcp_id}</div>
+      <div className={styles.item_MSNV}>{props.number_day_of_week}</div>
+    </div>
+  );
+};
+
+type FirstRowProps = {
+  name?: string;
+  id?: string;
+};
+
+const FirstRow = (props: FirstRowProps) => {
+  return (
+    <h3 className={styles.item}>
       <div className={styles.item_Name}>{props.name}</div>
       <div className={styles.item_MSNV}>{props.id}</div>
-    </div>
+    </h3>
   );
 };
 

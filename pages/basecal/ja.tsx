@@ -3,9 +3,13 @@ import styles from "./../../styles/ja.module.css";
 import { Button } from "./../../components/Button/Button";
 import { Input } from "./../../components/Input/Input";
 import { useRouter } from "next/router";
+import useSWR from "swr";
+import { fetcher } from "../../lib/fetch";
 
-const JA: NextPage = (props: AssignmentProps) => {
+const JA: NextPage = () => {
   const router = useRouter();
+
+  const { data } = useSWR("/api/base-cal/ja-base", fetcher);
 
   return (
     <div className={styles.container}>
@@ -32,30 +36,48 @@ const JA: NextPage = (props: AssignmentProps) => {
         </div>
       </div>
       <div className={styles.body}>
-        <h3>
-          <Assignment name="Họ và tên" id="MSNV"></Assignment>
-        </h3>
-        <Assignment name="Nguyễn Văn A" id="5/7"></Assignment>
-        <Assignment name="Nguyễn Văn B" id="0/7"></Assignment>
-        <Assignment name="Nguyễn Văn C" id="1/7"></Assignment>
-        <Assignment name="Nguyễn Văn D" id="7/7"></Assignment>
-        <Assignment name="Nguyễn Văn E" id="3/7"></Assignment>
+        <FirstRow name="Họ và tên" id="MSNV"></FirstRow>
+        {data
+          ? data.map((item: AssignmentProps) => (
+              <Assignment
+                key={item["ja_id"]}
+                ja_id={item["ja_id"]}
+                ja_name={item["ja_name"]}
+                number_day_of_week={item["number_day_of_week"]}
+              />
+            ))
+          : null}
       </div>
     </div>
   );
 };
 
 type AssignmentProps = {
-  name?: string;
-  id?: string;
+  ja_id: string;
+  ja_name: string;
+  number_day_of_week: number;
 };
 
 const Assignment = (props: AssignmentProps) => {
   return (
     <div className={styles.item}>
+      <div className={styles.item_Name}>{props.ja_name}</div>
+      <div className={styles.item_MSNV}>{props.number_day_of_week}</div>
+    </div>
+  );
+};
+
+type FirstRowProps = {
+  name?: string;
+  id?: string;
+};
+
+const FirstRow = (props: FirstRowProps) => {
+  return (
+    <h3 className={styles.item}>
       <div className={styles.item_Name}>{props.name}</div>
       <div className={styles.item_MSNV}>{props.id}</div>
-    </div>
+    </h3>
   );
 };
 

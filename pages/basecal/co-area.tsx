@@ -3,9 +3,13 @@ import styles from "./../../styles/co-area.module.css";
 import { Button } from "./../../components/Button/Button";
 import { Input } from "./../../components/Input/Input";
 import { useRouter } from "next/router";
+import useSWR from "swr";
+import { fetcher } from "../../lib/fetch";
 
-const Ja_MCP: NextPage = (props: AssignmentProps) => {
+const Ja_MCP: NextPage = () => {
   const router = useRouter();
+
+  const { data } = useSWR("/api/base-cal/co-base", fetcher);
 
   return (
     <div className={styles.container}>
@@ -32,30 +36,41 @@ const Ja_MCP: NextPage = (props: AssignmentProps) => {
         </div>
       </div>
       <div className={styles.body}>
-        <h3>
-          <Assignment name="Khu vực - Mã số" id="Số ngày đã phân công"></Assignment>
-        </h3>
-        <Assignment name="1" id="5/7"></Assignment>
-        <Assignment name="2" id="0/7"></Assignment>
-        <Assignment name="3" id="1/7"></Assignment>
-        <Assignment name="4" id="7/7"></Assignment>
-        <Assignment name="5" id="3/7"></Assignment>
+        <FirstRow name="Họ và tên" id="MSNV"></FirstRow>
+        {data
+          ? data.map((item: AssignmentProps) => (
+              <Assignment key={item["id"]} id={item["id"]} number_day_of_week={item["number_day_of_week"]} />
+            ))
+          : null}
       </div>
     </div>
   );
 };
 
 type AssignmentProps = {
-  name?: string;
-  id?: string;
+  id: string;
+  number_day_of_week: number;
 };
 
 const Assignment = (props: AssignmentProps) => {
   return (
     <div className={styles.item}>
+      <div className={styles.item_Name}>{props.id}</div>
+      <div className={styles.item_MSNV}>{props.number_day_of_week}</div>
+    </div>
+  );
+};
+type FirstRowProps = {
+  name?: string;
+  id?: string;
+};
+
+const FirstRow = (props: FirstRowProps) => {
+  return (
+    <h3 className={styles.item}>
       <div className={styles.item_Name}>{props.name}</div>
       <div className={styles.item_MSNV}>{props.id}</div>
-    </div>
+    </h3>
   );
 };
 
