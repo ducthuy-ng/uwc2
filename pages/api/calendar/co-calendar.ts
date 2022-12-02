@@ -32,8 +32,9 @@ async function get_co_calendar(req: NextApiRequest, res: NextApiResponse) {
   let year = req.query["year"];
   try {
     let results = await query(
-      "SELECT id AS co_id, full_name as co_name, coalesce(count, 0)::INTEGER AS number_day_of_month FROM employee LEFT JOIN (SELECT id AS co_ID, count(*) FROM employee RIGHT JOIN co_calendar ON id = co_calendar.co_id and extract(month from work_date) = $1 and extract(year from work_date) = $2 where working_role = 'CO' GROUP BY id) abc ON id = abc.co_ID where working_role = 'CO'"
-    ,[month,year]);
+      "SELECT id AS co_id, full_name as co_name, coalesce(count, 0)::INTEGER AS number_day_of_month FROM employee LEFT JOIN (SELECT id AS co_ID, count(*) FROM employee RIGHT JOIN co_calendar ON id = co_calendar.co_id and extract(month from work_date) = $1 and extract(year from work_date) = $2 where working_role = 'CO' GROUP BY id) abc ON id = abc.co_ID where working_role = 'CO'",
+      [month, year]
+    );
     res.status(200).send(results.rows);
   } catch (e) {
     res.status(500).send({});
@@ -46,17 +47,18 @@ async function delete_co_calendar(req: NextApiRequest, res: NextApiResponse) {
   let day = req.query["day"];
   let area = req.query["area_id"];
   let co = req.query["co_id"];
-  if (!month || !year || !day|| !area || !co) {
+  if (!month || !year || !day || !area || !co) {
     res.status(400).send({ message: "Input should not null" });
     return;
   }
   let date = year + "/" + month + "/" + day;
   try {
-    let results = await query(
-      "SELECT * FROM co_calendar \
-      WHERE co_id = $1 AND area_id = $2 AND work_date = $3",
-      [co, area, date]
-    );
+    let results = await query("SELECT * FROM co_calendar \
+      WHERE co_id = $1 AND area_id = $2 AND work_date = $3", [
+      co,
+      area,
+      date,
+    ]);
     //check if co calendar is existed
     if (results.rows.length < 1) {
       res.status(400).send({ message: "There are no such calendar" });
