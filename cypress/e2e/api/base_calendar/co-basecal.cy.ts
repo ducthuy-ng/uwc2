@@ -4,7 +4,7 @@ describe("Test Base Calendar functions for CO", () => {
       url: "/api/base-cal/co-base",
       method: "GET",
     }).then((resp) => {
-      expect(resp.body).to.have.length(10);
+      expect(resp.body).to.have.length(5);
       for (const assigment of resp.body) {
         expect(assigment).to.have.all.keys(["co_id", "co_name", "number_day_of_week"]);
         expect(assigment["number_day_of_week"]).to.be.eq(0);
@@ -14,7 +14,7 @@ describe("Test Base Calendar functions for CO", () => {
 
   it("First run, get specific CO should return array of 7 items, all is null", () => {
     cy.request({
-      url: "/api/base-cal/co-base/1",
+      url: "/api/base-cal/co-base/3",
       method: "GET",
     }).then((resp) => {
       expect(resp.body).to.have.length(7);
@@ -30,7 +30,7 @@ describe("Test Base Calendar functions for CO", () => {
       url: "/api/base-cal/co-base/area",
       method: "GET",
     }).then((resp) => {
-      expect(resp.body).to.have.length(10);
+      expect(resp.body).to.have.length(5);
       for (const assigment of resp.body) {
         expect(assigment).to.have.all.keys(["area_id", "number_day_of_week"]);
         expect(assigment["number_day_of_week"]).to.be.eq(0);
@@ -53,11 +53,11 @@ describe("Test Base Calendar functions for CO", () => {
 
   it("Create simple BaseCal should success", () => {
     cy.request({
-      url: "/api/base-cal/co-base/",
+      url: "/api/base-cal/co-base",
       method: "POST",
       qs: {
         area_id: 1,
-        co_id: 1,
+        co_id: 3,
         day_of_week: "Mon",
       },
     }).then((resp) => {
@@ -67,11 +67,11 @@ describe("Test Base Calendar functions for CO", () => {
 
   it("Create simple BaseCal, another DoW should success", () => {
     cy.request({
-      url: "/api/base-cal/co-base/",
+      url: "/api/base-cal/co-base",
       method: "POST",
       qs: {
         area_id: 1,
-        co_id: 1,
+        co_id: 3,
         day_of_week: "Tue",
       },
     }).then((resp) => {
@@ -84,13 +84,13 @@ describe("Test Base Calendar functions for CO", () => {
       url: "/api/base-cal/co-base",
       method: "GET",
     }).then((resp) => {
-      expect(resp.body).to.deep.include({ co_id: 1, co_name: "Susan", number_day_of_week: 2 });
+      expect(resp.body).to.deep.include({ co_id: 3, co_name: "Hermione", number_day_of_week: 2 });
     });
   });
 
   it("Get specific CO should return array, 2 is assigned", () => {
     cy.request({
-      url: "/api/base-cal/co-base/1",
+      url: "/api/base-cal/co-base/3",
       method: "GET",
     }).then((resp) => {
       const expectedResults = [
@@ -109,7 +109,7 @@ describe("Test Base Calendar functions for CO", () => {
       url: "/api/base-cal/co-base/area",
       method: "GET",
     }).then((resp) => {
-      expect(resp.body).to.deep.include({ area_1: 1, number_day_of_week: 2 });
+      expect(resp.body).to.deep.include({ area_id: 1, number_day_of_week: 2 });
     });
   });
 
@@ -119,8 +119,8 @@ describe("Test Base Calendar functions for CO", () => {
       method: "GET",
     }).then((resp) => {
       const expectedResults = [
-        { day_of_week: "Mon", co_id: 1 },
-        { day_of_week: "Tue", co_id: 1 },
+        { day_of_week: "Mon", co_id: 3 },
+        { day_of_week: "Tue", co_id: 3 },
       ];
 
       for (const result of expectedResults) {
@@ -131,11 +131,11 @@ describe("Test Base Calendar functions for CO", () => {
 
   it("Delete Mon BaseCal should success", () => {
     cy.request({
-      url: "/api/base-cal/co-base/",
+      url: "/api/base-cal/co-base",
       method: "DELETE",
       qs: {
         area_id: 1,
-        co_id: 1,
+        co_id: 3,
         day_of_week: "Mon",
       },
     }).then((resp) => {
@@ -148,13 +148,13 @@ describe("Test Base Calendar functions for CO", () => {
       url: "/api/base-cal/co-base",
       method: "GET",
     }).then((resp) => {
-      expect(resp.body).to.deep.include({ co_id: 1, co_name: "Susan", number_day_of_week: 1 });
+      expect(resp.body).to.deep.include({ co_id: 3, co_name: "Hermione", number_day_of_week: 1 });
     });
   });
 
   it("Get specific CO should return array, 1 is assigned", () => {
     cy.request({
-      url: "/api/base-cal/co-base/1",
+      url: "/api/base-cal/co-base/3",
       method: "GET",
     }).then((resp) => {
       const expectedResults = [{ day_of_week: "Tue", area_id: 1 }];
@@ -170,7 +170,7 @@ describe("Test Base Calendar functions for CO", () => {
       url: "/api/base-cal/co-base/area",
       method: "GET",
     }).then((resp) => {
-      expect(resp.body).to.deep.include({ area_1: 1, number_day_of_week: 1 });
+      expect(resp.body).to.deep.include({ area_id: 1, number_day_of_week: 1 });
     });
   });
 
@@ -179,7 +179,7 @@ describe("Test Base Calendar functions for CO", () => {
       url: "/api/base-cal/co-base/area/1",
       method: "GET",
     }).then((resp) => {
-      const expectedResults = [{ day_of_week: "Tue", co_id: 1 }];
+      const expectedResults = [{ day_of_week: "Tue", co_id: 3 }];
 
       for (const result of expectedResults) {
         expect(resp.body).to.deep.include(result);
@@ -189,11 +189,11 @@ describe("Test Base Calendar functions for CO", () => {
 
   it("Cleanup results", () => {
     cy.request({
-      url: "/api/base-cal/co-base/",
+      url: "/api/base-cal/co-base",
       method: "DELETE",
       qs: {
         area_id: 1,
-        co_id: 1,
+        co_id: 3,
         day_of_week: "Tue",
       },
     }).then((resp) => {
