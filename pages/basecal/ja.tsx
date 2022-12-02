@@ -62,7 +62,7 @@ const Assignment = (props: AssignmentProps) => {
   return (
     <div className={styles.item}>
       <div className={styles.item_Name}>{props.ja_name}</div>
-      <div className={styles.item_MSNV}>{props.number_day_of_week}</div>
+      <div className={styles.item_MSNV}>{props.ja_id}</div>
     </div>
   );
 };

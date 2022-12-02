@@ -6,10 +6,10 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { fetcher } from "../../lib/fetch";
 
-const Ja_MCP: NextPage = () => {
+const Co_Area: NextPage = () => {
   const router = useRouter();
 
-  const { data } = useSWR("/api/base-cal/co-base", fetcher);
+  const { data } = useSWR("/api/base-cal/co-base/area", fetcher);
 
   return (
     <div className={styles.container}>
@@ -20,7 +20,7 @@ const Ja_MCP: NextPage = () => {
         <div>
           <Button
             onClick={() => {
-              router.push("/basecal/ja");
+              router.push("/basecal/co");
             }}
           >
             Quay lại
@@ -28,7 +28,7 @@ const Ja_MCP: NextPage = () => {
         </div>
         <div className={styles.optionSearch}>
           <div>
-            <Input className={styles.optionSearch_Input} placeholder="Nhập tên tài xế ..."></Input>
+            <Input className={styles.optionSearch_Input} placeholder="Nhập tên khu vực ..."></Input>
           </div>
           <div>
             <Button className={styles.optionSearch_Button}>Tìm kiếm</Button>
@@ -36,10 +36,14 @@ const Ja_MCP: NextPage = () => {
         </div>
       </div>
       <div className={styles.body}>
-        <FirstRow name="Họ và tên" id="MSNV"></FirstRow>
+        <FirstRow name="Khu vực-Mã số" id="Số ngày đã phân công"></FirstRow>
         {data
           ? data.map((item: AssignmentProps) => (
-              <Assignment key={item["id"]} id={item["id"]} number_day_of_week={item["number_day_of_week"]} />
+              <Assignment
+                key={item["area_id"]}
+                area_id={item["area_id"]}
+                number_day_of_week={item["number_day_of_week"]}
+              />
             ))
           : null}
       </div>
@@ -48,14 +52,14 @@ const Ja_MCP: NextPage = () => {
 };
 
 type AssignmentProps = {
-  id: string;
+  area_id: string;
   number_day_of_week: number;
 };
 
 const Assignment = (props: AssignmentProps) => {
   return (
     <div className={styles.item}>
-      <div className={styles.item_Name}>{props.id}</div>
+      <div className={styles.item_Name}>{props.area_id}</div>
       <div className={styles.item_MSNV}>{props.number_day_of_week}</div>
     </div>
   );
@@ -74,4 +78,4 @@ const FirstRow = (props: FirstRowProps) => {
   );
 };
 
-export default Ja_MCP;
+export default Co_Area;

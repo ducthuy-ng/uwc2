@@ -96,9 +96,9 @@ const Assignment = (props: AssignmentProps) => {
   );
 };
 
-async function formSubmit(mcp_id: string, value: string, ja_id?: string) {
+async function formSubmit(mcp_id: string, value: string, ja_id?: string, day_of_week?: string) {
   if (value) {
-    await fetch(`/api/base-cal/ja-base/mcp?mcp_id=${mcp_id}&ja_id=${value}`, {
+    await fetch(`/api/base-cal/ja-base?mcp_id=${mcp_id}&ja_id=${value}&day_of_week=${day_of_week}`, {
       method: "POST",
     });
 
@@ -106,7 +106,7 @@ async function formSubmit(mcp_id: string, value: string, ja_id?: string) {
   }
 
   if (ja_id) {
-    await fetch(`/api/base-cal/ja-base/mcp?mcp_id=${mcp_id}&ja_id=${ja_id}`, {
+    await fetch(`/api/base-cal/ja-base?mcp_id=${mcp_id}&ja_id=${ja_id}&day_of_week=${day_of_week}`, {
       method: "DELETE",
     });
   }
