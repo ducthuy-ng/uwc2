@@ -23,7 +23,6 @@ export const getServerSideProps = (context: GetServerSidePropsContext) => {
 };
 
 const Home: NextPage<{ co_id: string }> = (props: { co_id: string }) => {
-  console.log(props.co_id);
   const router = useRouter();
 
   const { data, error } = useSWR(`/api/base-cal/co-base/${props.co_id}`, fetcher);
@@ -80,7 +79,7 @@ const Assignment = (props: AssignmentProps) => {
     <form
       onSubmit={async (event) => {
         event.preventDefault();
-        await formSubmit(props.co_id, value, props.area_id);
+        await formSubmit(props.co_id, value, props.area_id, props.day_of_week);
       }}
       className={styles.item}
     >
@@ -98,9 +97,9 @@ const Assignment = (props: AssignmentProps) => {
   );
 };
 
-async function formSubmit(co_id: string, value: string, area_id?: string) {
+async function formSubmit(co_id: string, value: string, area_id?: string, day_of_week?: string) {
   if (value) {
-    await fetch(`/api/base-cal/co-base?co_id=${co_id}&area_id=${value}`, {
+    await fetch(`/api/base-cal/co-base?co_id=${co_id}&area_id=${value}&day_of_week=${day_of_week}`, {
       method: "POST",
     });
 
@@ -108,7 +107,7 @@ async function formSubmit(co_id: string, value: string, area_id?: string) {
   }
 
   if (area_id) {
-    await fetch(`/api/base-cal/co-base?co_id=${co_id}&area_id=${area_id}`, {
+    await fetch(`/api/base-cal/co-base?co_id=${co_id}&area_id=${area_id}&day_of_week=${day_of_week}`, {
       method: "DELETE",
     });
   }

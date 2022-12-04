@@ -79,7 +79,7 @@ const Assignment = (props: AssignmentProps) => {
     <form
       onSubmit={async (event) => {
         event.preventDefault();
-        await formSubmit(props.area_id, value, props.co_id);
+        await formSubmit(props.area_id, value, props.co_id, props.day_of_week);
       }}
       className={styles.item}
     >

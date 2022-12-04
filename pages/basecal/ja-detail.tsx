@@ -23,7 +23,6 @@ export const getServerSideProps = (context: GetServerSidePropsContext) => {
 };
 
 const Home: NextPage<{ ja_id: string }> = (props: { ja_id: string }) => {
-  console.log(props.ja_id);
   const router = useRouter();
 
   const { data, error } = useSWR(`/api/base-cal/ja-base/${props.ja_id}`, fetcher);
@@ -79,7 +78,7 @@ const Assignment = (props: AssignmentProps) => {
     <form
       onSubmit={async (event) => {
         event.preventDefault();
-        await formSubmit(props.ja_id, value, props.mcp_id);
+        await formSubmit(props.ja_id, value, props.mcp_id, props.day_of_week);
       }}
       className={styles.item}
     >
@@ -97,9 +96,9 @@ const Assignment = (props: AssignmentProps) => {
   );
 };
 
-async function formSubmit(ja_id: string, value: string, mcp_id?: string) {
+async function formSubmit(ja_id: string, value: string, mcp_id?: string, day_of_week?: string) {
   if (value) {
-    await fetch(`/api/base-cal/ja-base?ja_id=${ja_id}&mcp_id=${value}`, {
+    await fetch(`/api/base-cal/ja-base?ja_id=${ja_id}&mcp_id=${value}&day_of_week=${day_of_week}`, {
       method: "POST",
     });
 
@@ -107,7 +106,7 @@ async function formSubmit(ja_id: string, value: string, mcp_id?: string) {
   }
 
   if (mcp_id) {
-    await fetch(`/api/base-cal/ja-base?ja_id=${ja_id}&mcp_id=${mcp_id}`, {
+    await fetch(`/api/base-cal/ja-base?ja_id=${ja_id}&mcp_id=${mcp_id}&day_of_week=${day_of_week}`, {
       method: "DELETE",
     });
   }

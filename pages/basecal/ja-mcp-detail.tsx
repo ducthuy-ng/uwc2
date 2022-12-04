@@ -23,7 +23,6 @@ export const getServerSideProps = (context: GetServerSidePropsContext) => {
 };
 
 const Home: NextPage<{ mcp_id: string }> = (props: { mcp_id: string }) => {
-  console.log(props.mcp_id);
   const router = useRouter();
 
   const { data, error } = useSWR(`/api/base-cal/ja-base/mcp/${props.mcp_id}`, fetcher);
@@ -78,7 +77,7 @@ const Assignment = (props: AssignmentProps) => {
     <form
       onSubmit={async (event) => {
         event.preventDefault();
-        await formSubmit(props.mcp_id, value, props.ja_id);
+        await formSubmit(props.mcp_id, value, props.ja_id, props.day_of_week);
       }}
       className={styles.item}
     >
