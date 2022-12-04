@@ -35,17 +35,31 @@ describe("Test JA Calendar", () => {
     });
   });
 
-  it("Get all calendar of December, 2022", () => {
+  it("Get all calendar for JA 1 of December, 2022", () => {
     cy.request({
       method: "GET",
-      url: "/api/calendar/ja-calendar",
+      url: "/api/calendar/get-ja-calendar",
       qs: {
         month: 12,
         year: 2022,
         ja_id: 1,
       },
     }).then((resp) => {
-      expect(resp.body).to.be.instanceof(Array);
+      expect(resp.body).to.have.length(4);
+    });
+  });
+
+  it("Get all calendar for MCP 1 of December, 2022", () => {
+    cy.request({
+      method: "GET",
+      url: "/api/calendar/get-mcp-calendar",
+      qs: {
+        month: 12,
+        year: 2022,
+        mcp_id: 1,
+      },
+    }).then((resp) => {
+      expect(resp.body).to.have.length(12);
     });
   });
 

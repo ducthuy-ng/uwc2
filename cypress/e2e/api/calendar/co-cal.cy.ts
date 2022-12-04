@@ -35,19 +35,34 @@ describe("Test CO Calendar", () => {
     });
   });
 
-  it("Get all calendar of December, 2022", () => {
+  it("Get all calendar for CO 1 of December, 2022", () => {
     cy.request({
       method: "GET",
-      url: "/api/calendar/co-calendar",
+      url: "/api/calendar/get-co-calendar",
       qs: {
         month: 12,
         year: 2022,
-        co_id: 1,
+        co_id: 3,
       },
     }).then((resp) => {
-      expect(resp.body).to.be.an("array");
+      expect(resp.body).to.have.length(4);
     });
   });
+
+  it("Get all calendar for Area 1 of December, 2022", () => {
+    cy.request({
+      method: "GET",
+      url: "/api/calendar/get-area-calendar",
+      qs: {
+        month: 12,
+        year: 2022,
+        area_id: 1,
+      },
+    }).then((resp) => {
+      expect(resp.body).to.have.length(12);
+    });
+  });
+
 
   it("Delete all calendar of December, 2022", () => {});
 
