@@ -36,7 +36,7 @@ const Home: NextPage<{ mcp_id: string }> = (props: { mcp_id: string }) => {
         <div>
           <Button
             onClick={() => {
-              router.push("/");
+              router.push("/basecal/ja-mcp");
             }}
           >
             Quay lại

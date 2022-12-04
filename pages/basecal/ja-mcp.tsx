@@ -41,6 +41,9 @@ const Ja_MCP: NextPage = () => {
                 key={item["mcp_id"]}
                 mcp_id={item["mcp_id"]}
                 number_day_of_week={item["number_day_of_week"]}
+                onClick={() => {
+                  router.push(`/basecal/ja-mcp-detail?mcp_id=${item["mcp_id"]}`);
+                }}
               />
             ))
           : null}
@@ -52,11 +55,12 @@ const Ja_MCP: NextPage = () => {
 type AssignmentProps = {
   mcp_id: string;
   number_day_of_week: number;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
 
 const Assignment = (props: AssignmentProps) => {
   return (
-    <div className={styles.item}>
+    <div className={styles.item} onClick={props.onClick}>
       <div className={styles.item_Name}>{props.mcp_id}</div>
       <div className={styles.item_MSNV}>{props.number_day_of_week}</div>
     </div>

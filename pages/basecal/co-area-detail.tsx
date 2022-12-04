@@ -37,7 +37,7 @@ const Home: NextPage<{ area_id: string }> = (props: { area_id: string }) => {
         <div>
           <Button
             onClick={() => {
-              router.push("/");
+              router.push("/basecal/co-area");
             }}
           >
             Quay lại

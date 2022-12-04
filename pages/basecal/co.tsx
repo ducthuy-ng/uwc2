@@ -44,6 +44,9 @@ const CO: NextPage = () => {
                 co_id={item["co_id"]}
                 co_name={item["co_name"]}
                 number_day_of_week={item["number_day_of_week"]}
+                onClick={() => {
+                  router.push(`/basecal/co-detail?co_id=${item["co_id"]}`);
+                }}
               />
             ))
           : null}
@@ -56,11 +59,12 @@ type AssignmentProps = {
   co_name: string;
   co_id: string;
   number_day_of_week: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
 
 const Assignment = (props: AssignmentProps) => {
   return (
-    <div className={styles.item}>
+    <div className={styles.item} onClick={props.onClick}>
       <div className={styles.item_Name}>{props.co_name}</div>
       <div className={styles.item_MSNV}>{props.co_id}</div>
     </div>

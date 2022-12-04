@@ -36,7 +36,7 @@ const Home: NextPage<{ co_id: string }> = (props: { co_id: string }) => {
         <div>
           <Button
             onClick={() => {
-              router.push("/");
+              router.push("/basecal/co");
             }}
           >
             Quay lại

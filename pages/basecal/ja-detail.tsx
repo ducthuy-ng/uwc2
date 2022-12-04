@@ -36,7 +36,7 @@ const Home: NextPage<{ ja_id: string }> = (props: { ja_id: string }) => {
         <div>
           <Button
             onClick={() => {
-              router.push("/");
+              router.push("/basecal/ja");
             }}
           >
             Quay lại

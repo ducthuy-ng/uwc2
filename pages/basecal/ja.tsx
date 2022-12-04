@@ -44,6 +44,9 @@ const JA: NextPage = () => {
                 ja_id={item["ja_id"]}
                 ja_name={item["ja_name"]}
                 number_day_of_week={item["number_day_of_week"]}
+                onClick={() => {
+                  router.push(`/basecal/ja-detail?ja_id=${item["ja_id"]}`);
+                }}
               />
             ))
           : null}
@@ -56,11 +59,12 @@ type AssignmentProps = {
   ja_id: string;
   ja_name: string;
   number_day_of_week: number;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
 
 const Assignment = (props: AssignmentProps) => {
   return (
-    <div className={styles.item}>
+    <div className={styles.item} onClick={props.onClick}>
       <div className={styles.item_Name}>{props.ja_name}</div>
       <div className={styles.item_MSNV}>{props.ja_id}</div>
     </div>
