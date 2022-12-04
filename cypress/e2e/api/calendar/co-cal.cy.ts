@@ -63,7 +63,6 @@ describe("Test CO Calendar", () => {
     });
   });
 
-
   it("Delete all calendar of December, 2022", () => {});
 
   after(() => {

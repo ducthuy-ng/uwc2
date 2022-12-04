@@ -14,14 +14,14 @@ async function get_mcp_calendar(req: NextApiRequest, res: NextApiResponse) {
   try {
     let results = await query(
       "SELECT extract(day from work_date) as day, ja_id FROM ja_calendar WHERE mcp_id = $1 and extract(month from work_date)= $2 and extract(year from work_date)= $3 order by day asc,ja_id asc",
-      [mcp,month, year]
+      [mcp, month, year]
     );
     if (results.rows.length < 1) {
-        res.status(400).send({ message: "There are no such calendar" });
-        return;
+      res.status(400).send({ message: "There are no such calendar" });
+      return;
     }
     res.status(200).send(results.rows);
-    } catch (e) {
+  } catch (e) {
     res.status(500).send({});
     return;
   }

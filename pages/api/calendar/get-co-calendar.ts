@@ -13,15 +13,15 @@ async function get_co_calendar(req: NextApiRequest, res: NextApiResponse) {
   }
   try {
     let results = await query(
-        "SELECT extract(day from work_date) as day, area_id FROM co_calendar WHERE co_id = $1 and extract(month from work_date)= $2 and extract(year from work_date)= $3 order by day asc,area_id asc",
-        [id,month, year]
-      );
+      "SELECT extract(day from work_date) as day, area_id FROM co_calendar WHERE co_id = $1 and extract(month from work_date)= $2 and extract(year from work_date)= $3 order by day asc,area_id asc",
+      [id, month, year]
+    );
     if (results.rows.length < 1) {
-        res.status(400).send({ message: "There are no such calendar" });
-        return;
+      res.status(400).send({ message: "There are no such calendar" });
+      return;
     }
     res.status(200).send(results.rows);
-    } catch (e) {
+  } catch (e) {
     res.status(500).send({});
     return;
   }

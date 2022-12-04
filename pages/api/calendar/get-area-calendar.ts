@@ -14,14 +14,14 @@ async function get_area_calendar(req: NextApiRequest, res: NextApiResponse) {
   try {
     let results = await query(
       "SELECT extract(day from work_date) as day, co_id FROM co_calendar WHERE area_id = $1 and extract(month from work_date)= $2 and extract(year from work_date)= $3 order by day asc,co_id asc",
-      [area,month, year]
+      [area, month, year]
     );
     if (results.rows.length < 1) {
-        res.status(400).send({ message: "There are no such calendar" });
-        return;
+      res.status(400).send({ message: "There are no such calendar" });
+      return;
     }
     res.status(200).send(results.rows);
-    } catch (e) {
+  } catch (e) {
     res.status(500).send({});
     return;
   }
