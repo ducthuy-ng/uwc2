@@ -20,7 +20,7 @@ const Co_Area: NextPage = () => {
         <div>
           <Button
             onClick={() => {
-              router.push("/basecal/co");
+              router.push("/");
             }}
           >
             Quay lại

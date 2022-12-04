@@ -18,7 +18,7 @@ const Ja_MCP: NextPage = () => {
         <div>
           <Button
             onClick={() => {
-              router.push("/basecal/ja");
+              router.push("/");
             }}
           >
             Quay lại
