@@ -39,6 +39,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div className={styles.body}>
+        <FirstRow name="Khu vực" id="Xe rác"></FirstRow>
         {data
           ? data.map((item: AssignmentProps) => (
               <Assignment
@@ -81,6 +82,20 @@ const Assignment = (props: AssignmentProps) => {
       </div>
       <input type="submit" hidden></input>
     </form>
+  );
+};
+
+type FirstRowProps = {
+  name?: string;
+  id?: string;
+};
+
+const FirstRow = (props: FirstRowProps) => {
+  return (
+    <h3 className={styles.item}>
+      <div className={styles.item_Name}>{props.name}</div>
+      <div className={styles.item_MSNV}>{props.id}</div>
+    </h3>
   );
 };
 
