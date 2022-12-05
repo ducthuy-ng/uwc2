@@ -47,7 +47,6 @@ const Home: NextPage = () => {
             }}
             className={styles.button}
           >
-            {" "}
             Xếp lịch
           </button>
         </div>
@@ -59,7 +58,6 @@ const Home: NextPage = () => {
             }}
             className={styles.button}
           >
-            {" "}
             Phân khu vực - xe rác
           </button>
           <button
@@ -76,7 +74,6 @@ const Home: NextPage = () => {
             }}
             className={styles.button}
           >
-            {" "}
             Lịch làm việc - tài xế
           </button>
           <button
@@ -85,7 +82,6 @@ const Home: NextPage = () => {
             }}
             className={styles.button}
           >
-            {" "}
             Tình trạng MCP
           </button>
         </div>
