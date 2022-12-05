@@ -78,7 +78,7 @@ const Home: NextPage = () => {
           </button>
           <button
             onClick={() => {
-              router.push("/");
+              router.push("/mcpStatus/mcpstatus");
             }}
             className={styles.button}
           >
