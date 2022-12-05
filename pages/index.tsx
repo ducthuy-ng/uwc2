@@ -32,7 +32,23 @@ const Home: NextPage = () => {
           >
             Quản lý lịch nền - lao công
           </button>
-          <button className={styles.button}> Lịch làm việc - lao công</button>
+          <button
+            onClick={() => {
+              router.push("/cal/ja");
+            }}
+            className={styles.button}
+          >
+            {" "}
+            Lịch làm việc - lao công
+          </button>
+          <button
+            onClick={() => {
+              router.push("/");
+            }}
+            className={styles.button}
+          >
+            Xếp lịch
+          </button>
         </div>
 
         <div className={styles.Column}>
@@ -42,7 +58,6 @@ const Home: NextPage = () => {
             }}
             className={styles.button}
           >
-            {" "}
             Phân khu vực - xe rác
           </button>
           <button
@@ -53,7 +68,22 @@ const Home: NextPage = () => {
           >
             Quản lý lịch nền - tài xế
           </button>
-          <button className={styles.button}> Lịch làm việc - tài xế</button>
+          <button
+            onClick={() => {
+              router.push("/cal/co");
+            }}
+            className={styles.button}
+          >
+            Lịch làm việc - tài xế
+          </button>
+          <button
+            onClick={() => {
+              router.push("/");
+            }}
+            className={styles.button}
+          >
+            Tình trạng MCP
+          </button>
         </div>
       </div>
 
