@@ -65,7 +65,7 @@ async function updateMCPCurrentCap(req: NextApiRequest, res: NextApiResponse) {
     }
     //check if current_cap is larger than max_cap
     if (result_mcp.rows[0]["max_cap"] < current_cap) {
-        res.status(400).send({ message: "current_cap can't over max_cap" })
+      res.status(400).send({ message: "current_cap can't over max_cap" });
     }
     //update current_cap into mcp
     await query("UPDATE mcp SET current_cap = $1 WHERE id = $2;", [current_cap, mcp]);
