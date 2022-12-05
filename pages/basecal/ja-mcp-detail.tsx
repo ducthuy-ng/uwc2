@@ -1,5 +1,5 @@
-import type { NextPage } from "next";
-import styles from "../../styles/assignment-ja.module.css";
+import type { GetServerSidePropsContext, NextPage } from "next";
+import styles from "./../../styles/ja-detail.module.css";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import { useState } from "react";
@@ -7,72 +7,81 @@ import { fetcher } from "../../lib/fetch";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 
-const Home: NextPage = () => {
+export const getServerSideProps = (context: GetServerSidePropsContext) => {
+  if (!context.query["mcp_id"])
+    return {
+      redirect: {
+        destination: "/",
+      },
+    };
+
+  return {
+    props: {
+      mcp_id: context.query["mcp_id"],
+    },
+  };
+};
+
+const Home: NextPage<{ mcp_id: string }> = (props: { mcp_id: string }) => {
   const router = useRouter();
 
-  const { data, error } = useSWR("/api/assignment/ja-trolley", fetcher);
+  const { data, error } = useSWR(`/api/base-cal/ja-base/mcp/${props.mcp_id}`, fetcher);
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>PHÂN XE ĐẨY - LAO CÔNG</h1>
+        <h1>QUẢN LÝ LỊCH NỀN LAO CÔNG - Chi tiết</h1>
       </div>
       <div className={styles.option}>
         <div>
           <Button
             onClick={() => {
-              router.push("/");
+              router.push("/basecal/ja-mcp");
             }}
           >
             Quay lại
           </Button>
         </div>
         <div className={styles.optionSearch}>
-          <div>
-            <Input className={styles.optionSearch_Input} placeholder="Nhập tên lao công ..."></Input>
-          </div>
-          <div>
-            <Button className={styles.optionSearch_Button}>Tìm kiếm</Button>
-          </div>
+          <h3>Mã điểm tập kết: {props.mcp_id}</h3>
         </div>
         <div>
-          <Button>Lọc</Button>
+          <Button>Cập nhật</Button>
         </div>
       </div>
       <div className={styles.body}>
-        <FirstRow name="Lao công" id="Xe đẩy"></FirstRow>
+        <FirstRow name="Thứ trong tuần" id="Lao công"></FirstRow>
         {data
           ? data.map((item: AssignmentProps) => (
               <Assignment
-                key={item["ja_id"]}
-                ja_name={item["ja_name"]}
+                key={props.mcp_id}
+                mcp_id={props.mcp_id}
                 ja_id={item["ja_id"]}
-                trolley_id={item["trolley_id"]}
+                day_of_week={item["day_of_week"]}
               />
             ))
-          : "Loading..."}
+          : null}
       </div>
     </div>
   );
 };
-
 type AssignmentProps = {
-  ja_name: string;
+  mcp_id: string;
   ja_id: string;
-  trolley_id?: string;
+  day_of_week: string;
 };
 
 const Assignment = (props: AssignmentProps) => {
-  const [value, setValue] = useState(props.trolley_id || "");
+  const [value, setValue] = useState(props.ja_id || "");
   return (
     <form
       onSubmit={async (event) => {
         event.preventDefault();
-        await formSubmit(props.ja_id, value, props.trolley_id);
+        await formSubmit(props.mcp_id, value, props.ja_id, props.day_of_week);
       }}
       className={styles.item}
     >
-      <div className={styles.item_Text}>{props.ja_name}</div>
+      <div className={styles.item_Text}>{props.day_of_week}</div>
       <div className={styles.item_Input}>
         <Input
           value={value}
@@ -85,6 +94,22 @@ const Assignment = (props: AssignmentProps) => {
     </form>
   );
 };
+
+async function formSubmit(mcp_id: string, value: string, ja_id?: string, day_of_week?: string) {
+  if (value) {
+    await fetch(`/api/base-cal/ja-base?mcp_id=${mcp_id}&ja_id=${value}&day_of_week=${day_of_week}`, {
+      method: "POST",
+    });
+
+    return;
+  }
+
+  if (ja_id) {
+    await fetch(`/api/base-cal/ja-base?mcp_id=${mcp_id}&ja_id=${ja_id}&day_of_week=${day_of_week}`, {
+      method: "DELETE",
+    });
+  }
+}
 
 type FirstRowProps = {
   name?: string;
@@ -99,21 +124,5 @@ const FirstRow = (props: FirstRowProps) => {
     </h3>
   );
 };
-
-async function formSubmit(ja_id: string, value: string, trolley_id?: string) {
-  if (value) {
-    await fetch(`/api/assignment/ja-trolley?ja_id=${ja_id}&trolley_id=${value}`, {
-      method: "POST",
-    });
-
-    return;
-  }
-
-  if (trolley_id) {
-    await fetch(`/api/assignment/ja-trolley?ja_id=${ja_id}&trolley_id=${trolley_id}`, {
-      method: "DELETE",
-    });
-  }
-}
 
 export default Home;

@@ -13,7 +13,6 @@
 .option {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 10px 53px;
   flex-grow: 1;
 }
@@ -42,15 +41,3 @@
   align-items: center;
   padding: 18px 40px;
 }
-<<<<<<< HEAD
-
-.Show_Details {
-  display: flex;
-  justify-content: space-between;
-  align-items: left;
-  flex-direction: column;
-  padding: 10px 53px;
-  flex-grow: 1;
-}
-=======
->>>>>>> main

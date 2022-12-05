@@ -68,6 +68,7 @@ type ModalProps = {
 };
 
 function AssignJATrolleyModal(props: ModalProps) {
+  const router = useRouter();
   return (
     <div
       className={styles.modal_background}
@@ -79,10 +80,26 @@ function AssignJATrolleyModal(props: ModalProps) {
         <h1 className={styles.Homepage_title}> Tìm kiếm theo </h1>
         <div className={styles.Actions_Board}>
           <div className={styles.Column}>
-            <button className={styles.button}> Lao công</button>
+            <button
+              onClick={() => {
+                router.push("/basecal/ja");
+              }}
+              className={styles.button}
+            >
+              {" "}
+              Lao công
+            </button>
           </div>
           <div className={styles.Column}>
-            <button className={styles.button}> Điểm tập kết</button>
+            <button
+              onClick={() => {
+                router.push("/basecal/ja-mcp");
+              }}
+              className={styles.button}
+            >
+              {" "}
+              Điểm tập kết
+            </button>
           </div>
         </div>
       </div>
@@ -91,6 +108,7 @@ function AssignJATrolleyModal(props: ModalProps) {
 }
 
 function AssignCOAreaModal(props: ModalProps) {
+  const router = useRouter();
   return (
     <div
       className={styles.modal_background}
@@ -102,10 +120,26 @@ function AssignCOAreaModal(props: ModalProps) {
         <h1 className={styles.Homepage_title}> Tìm kiếm theo </h1>
         <div className={styles.Actions_Board}>
           <div className={styles.Column}>
-            <button className={styles.button}> Tài xế</button>
+            <button
+              onClick={() => {
+                router.push("/basecal/co");
+              }}
+              className={styles.button}
+            >
+              {" "}
+              Tài xế
+            </button>
           </div>
           <div className={styles.Column}>
-            <button className={styles.button}> Khu vực</button>
+            <button
+              onClick={() => {
+                router.push("/basecal/co-area");
+              }}
+              className={styles.button}
+            >
+              {" "}
+              Khu vực
+            </button>
           </div>
         </div>
       </div>
