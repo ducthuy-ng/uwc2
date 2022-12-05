@@ -30,7 +30,7 @@ const Home: NextPage<{ co_id: string }> = (props: { co_id: string }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>LỊCH LÀM VIỆC TÀI XẾ - THÁNG 12</h1>
+        <h1>LỊCH LÀM VIỆC - TÀI XẾ - THÁNG 12</h1>
       </div>
       <div className={styles.option}>
         <div>
