@@ -39,7 +39,7 @@ const JA: NextPage = () => {
         <FirstRow name="Mã số MCP" id="Sức chứa hiện tại"></FirstRow>
         {data
           ? data.map((item: AssignmentProps) => (
-              <Assignment key={item["mcp_id"]} mcp_id={item["mcp_id"]} curent_cap={item["curent_cap"]} />
+              <Assignment key={item["mcp_id"]} mcp_id={item["mcp_id"]} current_cap={item["current_cap"]} />
             ))
           : null}
       </div>
@@ -49,14 +49,14 @@ const JA: NextPage = () => {
 
 type AssignmentProps = {
   mcp_id: string;
-  curent_cap: string;
+  current_cap: string;
 };
 
 const Assignment = (props: AssignmentProps) => {
   return (
     <div className={styles.item}>
       <div className={styles.item_Name}>{props.mcp_id}</div>
-      <div className={styles.item_MSNV}>{props.curent_cap}</div>
+      <div className={styles.item_MSNV}>{props.current_cap}</div>
     </div>
   );
 };
