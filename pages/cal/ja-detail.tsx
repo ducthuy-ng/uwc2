@@ -25,12 +25,18 @@ export const getServerSideProps = (context: GetServerSidePropsContext) => {
 const Home: NextPage<{ ja_id: string }> = (props: { ja_id: string }) => {
   const router = useRouter();
 
-  const { data, error } = useSWR(`/api/calendar/ja-calendar/${props.ja_id}`, fetcher);
+  let today = new Date();
+  today.setMonth(today.getMonth() + 1);
+
+  const { data, error } = useSWR(
+    `/api/calendar/get-ja-calendar?ja_id=${props.ja_id}&month=${today.getMonth() + 1}&year=${today.getFullYear()}`,
+    fetcher
+  );
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>LỊCH LÀM VIỆC - LAO CÔNG - Tháng 12</h1>
+        <h1>LỊCH LÀM VIỆC - LAO CÔNG - Tháng {today.getMonth() + 1}</h1>
       </div>
       <div className={styles.option}>
         <div>

@@ -42,8 +42,15 @@ const Home: NextPage = () => {
             Lịch làm việc - lao công
           </button>
           <button
-            onClick={() => {
-              router.push("/");
+            onClick={async () => {
+              let today = new Date();
+              today.setMonth(today.getMonth() + 1);
+              await fetch(`/api/calendar/ja-calendar?month=${today.getMonth() + 1}&year=${today.getFullYear()}`, {
+                method: "POST",
+              });
+              await fetch(`/api/calendar/co-calendar?month=${today.getMonth() + 1}&year=${today.getFullYear()}`, {
+                method: "POST",
+              });
             }}
             className={styles.button}
           >

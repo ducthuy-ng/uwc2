@@ -8,13 +8,18 @@ import { fetcher } from "../../lib/fetch";
 
 const Ja_MCP: NextPage = () => {
   const router = useRouter();
+  let today = new Date();
+  today.setMonth(today.getMonth() + 1);
 
-  const { data } = useSWR("/api/calendar/ja-calendar", fetcher);
+  const { data } = useSWR(
+    `/api/calendar/ja-calendar?month=${today.getMonth() + 1}&year=${today.getFullYear()}`,
+    fetcher
+  );
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>LỊCH LÀM VIỆC - LAO CÔNG - THÁNG 12</h1>
+        <h1>LỊCH LÀM VIỆC - LAO CÔNG - THÁNG {today.getMonth() + 1}</h1>
       </div>
       <div className={styles.option}>
         <div>
