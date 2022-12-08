@@ -25,12 +25,18 @@ export const getServerSideProps = (context: GetServerSidePropsContext) => {
 const Home: NextPage<{ co_id: string }> = (props: { co_id: string }) => {
   const router = useRouter();
 
-  const { data, error } = useSWR(`/api/calendar/co-calendar/${props.co_id}`, fetcher);
+  let today = new Date();
+  today.setMonth(today.getMonth() + 1);
+
+  const { data, error } = useSWR(
+    `/api/calendar/get-co-calendar?co_id=${props.co_id}&month=${today.getMonth() + 1}&year=${today.getFullYear()}`,
+    fetcher
+  );
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>LỊCH LÀM VIỆC - TÀI XẾ - THÁNG 12</h1>
+        <h1>LỊCH LÀM VIỆC - TÀI XẾ - THÁNG {today.getMonth() + 1}</h1>
       </div>
       <div className={styles.option}>
         <div>
